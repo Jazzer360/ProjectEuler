@@ -1,0 +1,37 @@
+package drj.euler.problems;
+
+import java.math.BigInteger;
+import java.util.HashSet;
+import java.util.Set;
+
+import drj.euler.Utility;
+
+/**
+ * The 5-digit number, 16807=7^5, is also a fifth power. Similarly, the 9-digit
+ * number, 134217728=8^9, is a ninth power.
+ * 
+ * How many n-digit positive integers exist which are also an nth power?
+ */
+public class Problem063 {
+
+	public static void main(String[] args) {
+		Utility.Timer t = new Utility.Timer();
+		t.start();
+
+		Set<BigInteger> nums = new HashSet<BigInteger>();
+
+		for (int i = 1; i <= 9; i++) {
+			BigInteger n = BigInteger.valueOf(i);
+			BigInteger base = BigInteger.valueOf(i);
+			int exp = 1;
+			while (base.toString().length() == exp) {
+				nums.add(base);
+				base = base.multiply(n);
+				exp++;
+			}
+		}
+
+		System.out.println(nums.size());
+		System.out.println(t.toDecimalString());
+	}
+}
