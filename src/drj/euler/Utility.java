@@ -843,7 +843,7 @@ public class Utility {
 	/**
 	 * Returns the number of digits in the int passed to it. Negative numbers
 	 * will not count the minus sign as a character for the purpose of counting
-	 * the digits.
+	 * the digits. Passing 0 returns 1.
 	 * 
 	 * @param num	number to count digits of
 	 * @return		number of digits in the number
