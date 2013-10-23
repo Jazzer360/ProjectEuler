@@ -35,3 +35,7 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+### Eclipse Auto-Added ###
+
+/bin
