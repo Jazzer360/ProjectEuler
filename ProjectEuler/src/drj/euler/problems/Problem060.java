@@ -33,12 +33,7 @@ public class Problem060 {
 			prime = s.nextPrime(prime);
 		}
 
-		for (Integer key : concatables.keySet()) {
-			System.out.print(key);
-			System.out.println(concatables.get(key));
-		}
-
-		//System.out.println(getPrimeSet(5, 3, null));
+		System.out.println(getPrimeSet(4, 3, null));
 		System.out.println(t.toDecimalString());
 	}
 
@@ -59,7 +54,11 @@ public class Problem060 {
 					concatables.put(n1, set);
 				}
 			}
-			splitPoint *= (n1 % 10 == 0 ? 100 : 10);
+			while (n1 % 10 == 0) {
+				splitPoint *= 10;
+				n1 /= 10;
+			}
+			splitPoint *= 10;
 		}
 	}
 
