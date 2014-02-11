@@ -1,8 +1,5 @@
 package drj.euler.problems;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -22,10 +19,8 @@ import drj.euler.Utility.PrimeSieve;
 public class Problem060 {
 
 	private static final PrimeSieve s = new PrimeSieve();
-	private static final Map<Integer, TreeSet<Integer>>	concatables =
-			new TreeMap<Integer, TreeSet<Integer>>();
-	@SuppressWarnings("unused")
-	private static final Set<TreeSet<Integer>> sets = new HashSet<>();
+	private static final TreeMap<Integer, TreeSet<Integer>>	concatables =
+			(new TreeMap<>());
 
 	public static void main(String[] args) {
 		Utility.Timer t = new Utility.Timer();
@@ -33,7 +28,7 @@ public class Problem060 {
 
 		long prime = s.nextPrime(30);
 
-		while (prime < 1_000_000) {
+		while (prime < 10_000_000) {
 			splitPrime(prime);
 			prime = s.nextPrime(prime);
 		}
@@ -43,7 +38,7 @@ public class Problem060 {
 			System.out.println(concatables.get(key));
 		}
 
-		System.out.println(concatables);
+		//System.out.println(getPrimeSet(5, 3, null));
 		System.out.println(t.toDecimalString());
 	}
 
@@ -60,12 +55,60 @@ public class Problem060 {
 					set.add(n2);
 				} else {
 					TreeSet<Integer> set = new TreeSet<>();
-					//set.add(n1);
 					set.add(n2);
 					concatables.put(n1, set);
 				}
 			}
-			splitPoint *= 10;
+			splitPoint *= (n1 % 10 == 0 ? 100 : 10);
+		}
+	}
+
+	private static TreeSet<Integer> getPrimeSet(int setSize, int startPrime,
+			TreeSet<Integer> primeSet) {
+		if (primeSet == null) {
+			primeSet = new TreeSet<>();
+			primeSet.add(startPrime);
+			return getPrimeSet(setSize, startPrime, primeSet);
+		}
+
+		if (primeSet.size() == setSize) {
+			return primeSet;
+		}
+
+		Integer next = concatables.get(primeSet.first())
+				.ceiling(primeSet.last() + 1);
+
+		while (true) {
+			if (next == null) {
+				Integer root = primeSet.first();
+				Integer last = primeSet.last();
+				if (root == last) {
+					Integer newRoot = concatables.ceilingKey(root + 1);
+					primeSet.clear();
+					primeSet.add(newRoot);
+					return getPrimeSet(setSize, startPrime, primeSet);
+				} else {
+					next = concatables.get(root).ceiling(last + 1);
+					primeSet.remove(last);
+					continue;
+				}
+			}
+
+			boolean nextIsValid = true;
+			for (Integer prime : primeSet) {
+				if (!(concatables.get(prime).contains(next) &&
+						concatables.get(next).contains(prime))) {
+					next = concatables.get(primeSet.first())
+							.ceiling(next + 1);
+					nextIsValid = false;
+					break;
+				}
+			}
+
+			if (nextIsValid) {
+				primeSet.add(next);
+				return getPrimeSet(setSize, startPrime, primeSet);
+			}
 		}
 	}
 }
