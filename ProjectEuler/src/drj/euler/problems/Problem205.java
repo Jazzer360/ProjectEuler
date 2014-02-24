@@ -1,6 +1,10 @@
 package drj.euler.problems;
 
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import drj.euler.Utility;
 
 /**
  * Peter has nine four-sided (pyramidal) dice, each with faces numbered:
@@ -18,34 +22,56 @@ import java.util.Random;
 public class Problem205 {
 
 	public static void main(String[] args) {
-		long gamesPlayed = 0;
+		Utility.Timer t = new Utility.Timer();
+		t.start();
+
+		Map<Integer, Integer> peteOutcomes = new HashMap<>();
+		Map<Integer, Integer> colinOutcomes = new HashMap<>();
+
+		fillOutcomeMap(4, 9, peteOutcomes, 0);
+		fillOutcomeMap(6, 6, colinOutcomes, 0);
+
+		long totalOutcomes = 0;
 		long peteWins = 0;
 
-		while (true) {
-			if (peteWins()) {
-				peteWins++;
+		for (Entry<Integer, Integer> pete : peteOutcomes.entrySet()) {
+			for (Entry<Integer, Integer> colin : colinOutcomes.entrySet()) {
+				totalOutcomes += pete.getValue() * colin.getValue();
+				if (pete.getKey() > colin.getKey()) {
+					peteWins += pete.getValue() * colin.getValue();
+				}
 			}
-			gamesPlayed++;
+		}
 
-			if (gamesPlayed % 10_000_000 == 0) {
-				System.out.println((double) peteWins / gamesPlayed);
+		double peteWinPct = (double) peteWins / totalOutcomes;
+
+		System.out.println(String.format("%.7f", peteWinPct));
+		System.out.println(t.toDecimalString());
+	}
+
+	private static void fillOutcomeMap(int sides, int dice,
+			Map<Integer, Integer> map, int sum) {
+		if (dice == 1) {
+			for (int i = 1; i <= sides; i++) {
+				int thisSum = sum;
+				thisSum += i;
+				addToMap(thisSum, 1, map);
+			}
+		} else {
+			dice--;
+			for (int i = 1; i <= sides; i++) {
+				fillOutcomeMap(sides, dice, map, sum + i);
 			}
 		}
 	}
 
-	private static boolean peteWins() {
-		Random r = new Random();
-
-		int peteTotal = 0;
-		int colinTotal = 0;
-
-		for (int i = 0; i < 9; i++) {
-			peteTotal += r.nextInt(4) + 1;
+	private static void addToMap(int key, int value,
+			Map<Integer, Integer> map) {
+		Integer sum = map.get(key);
+		if (sum == null) {
+			map.put(key, value);
+		} else {
+			map.put(key, sum + value);
 		}
-		for (int i = 0; i < 6; i++) {
-			colinTotal += r.nextInt(6) + 1;
-		}
-
-		return peteTotal > colinTotal ? true : false;
 	}
 }
