@@ -1,7 +1,13 @@
 package drj.euler.problems;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import drj.euler.Utility;
 
@@ -35,7 +41,7 @@ import drj.euler.Utility;
  */
 public class Problem074 {
 
-	private static Map<Long, Integer> loopSizes = new HashMap<>();
+	private static Map<Long, Integer> loopSizes = new ConcurrentHashMap<>();
 
 	public static void main(String[] args) {
 		Utility.Timer t = new Utility.Timer();
@@ -53,17 +59,74 @@ public class Problem074 {
 		loopSizes.put(1L, 1);
 		loopSizes.put(2L, 1);
 
-		int count = 0;
+		BlockingQueue<Integer> queue = new LinkedBlockingQueue<>();
+		TermChecker checker = new TermChecker(queue, 60);
+		checker.start();
 
 		for (int i = 3; i < 1_000_000; i++) {
-			int terms = termsInLoop(i);
-			if (terms == 60) {
-				count++;
+			queue.add(i);
+		}
+
+		System.out.println(checker.getResultAndStop());
+		System.out.println(t.toDecimalString());
+	}
+
+	private static class TermChecker {
+
+		private class CheckerTask implements Runnable {
+			private boolean interrupted = false;
+			@Override
+			public void run() {
+				try {
+					while (queue.peek() != POISON) {
+						try {
+							if (termsInLoop(queue.take()) == targetTermCount) {
+								termsWithTargetCount.getAndIncrement();
+							}
+						} catch (InterruptedException e) {
+							interrupted = true;
+						}
+					}
+				} finally {
+					if (interrupted) Thread.currentThread().interrupt();
+				}
 			}
 		}
 
-		System.out.println(count);
-		System.out.println(t.toDecimalString());
+		private static final Integer POISON = Integer.valueOf(-1);
+		private BlockingQueue<Integer> queue;
+
+		private ExecutorService exec;
+
+		private int targetTermCount;
+		private AtomicInteger termsWithTargetCount;
+
+		public TermChecker(BlockingQueue<Integer> queue, int targetTermCount) {
+			termsWithTargetCount = new AtomicInteger();
+			int cores = Runtime.getRuntime().availableProcessors();
+			exec = Executors.newFixedThreadPool(cores);
+			this.targetTermCount = targetTermCount;
+			this.queue = queue;
+		}
+
+		public void start() {
+			int cores = Runtime.getRuntime().availableProcessors();
+			for (int i = 0; i < cores; i++) {
+				exec.execute(new CheckerTask());
+			}
+		}
+
+		public int getResultAndStop() {
+			try {
+				queue.put(POISON);
+				exec.shutdown();
+				exec.awaitTermination(1, TimeUnit.DAYS);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			queue.clear();
+			return termsWithTargetCount.get();
+		}
 	}
 
 	private static int termsInLoop(long n) {
