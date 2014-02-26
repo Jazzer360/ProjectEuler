@@ -52,8 +52,6 @@ public class Problem089 {
 
 			startCount += numeral.length();
 			endCount += reducedNumeral.length();
-
-			System.out.println(value + " - " + reducedNumeral);
 		}
 
 		System.out.println(startCount - endCount);
