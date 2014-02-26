@@ -22,7 +22,7 @@ import drj.euler.Utility;
  */
 public class Problem145 {
 
-	private static final int THRESHOLD = 1_000_000_000;
+	private static final long THRESHOLD = 1_000_000_000;
 
 	public static void main(String[] args) {
 		Utility.Timer t = new Utility.Timer();
@@ -33,12 +33,14 @@ public class Problem145 {
 
 		List<Future<Integer>> futures = new ArrayList<>();
 
-		for (int i = 0; i < THRESHOLD / 1_000_000; i++) {
-			int start = i * 1_000_000;
-			int end = start + 999_999;
+		for (int i = 0; i < cores; i++) {
+			long start = THRESHOLD * i / cores;
+			long end = THRESHOLD * (i + 1) / cores - 1;
 
-			futures.add(exec.submit(new ReversibleChecker(start, end)));
+			futures.add(exec.submit(new ReversibleChecker(
+					(int) start, (int) end)));
 		}
+		exec.shutdown();
 
 		int count = 0;
 
@@ -50,7 +52,6 @@ public class Problem145 {
 			}
 		}
 
-		exec.shutdown();
 		System.out.println(count);
 		System.out.println(t.toDecimalString());
 	}
@@ -64,6 +65,7 @@ public class Problem145 {
 			start = startNum;
 			last = lastNum;
 		}
+
 		@Override
 		public Integer call() throws Exception {
 			int count = 0;
