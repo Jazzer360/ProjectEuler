@@ -36,7 +36,7 @@ public class Problem112 {
 			if (isBouncy(num)) bouncyCount++;
 		}
 
-		System.out.println(num + ", " + bouncyCount);
+		System.out.println(num);
 		System.out.println(t.toDecimalString());
 	}
 
