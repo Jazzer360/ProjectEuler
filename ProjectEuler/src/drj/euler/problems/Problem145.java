@@ -1,5 +1,13 @@
 package drj.euler.problems;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import drj.euler.Utility;
 
 /**
@@ -20,15 +28,50 @@ public class Problem145 {
 		Utility.Timer t = new Utility.Timer();
 		t.start();
 
-		int count = 0;
+		int cores = Runtime.getRuntime().availableProcessors();
+		ExecutorService exec = Executors.newFixedThreadPool(cores);
 
-		for (int i = 0; i < THRESHOLD; i++) {
-			if (isReversible(i))
-				count++;
+		List<Future<Integer>> futures = new ArrayList<>();
+
+		for (int i = 0; i < THRESHOLD / 1_000_000; i++) {
+			int start = i * 1_000_000;
+			int end = start + 999_999;
+
+			futures.add(exec.submit(new ReversibleChecker(start, end)));
 		}
 
+		int count = 0;
+
+		for (Future<Integer> future : futures) {
+			try {
+				count += future.get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
+		}
+
+		exec.shutdown();
 		System.out.println(count);
 		System.out.println(t.toDecimalString());
+	}
+
+	private static class ReversibleChecker implements Callable<Integer> {
+
+		private int start;
+		private int last;
+
+		public ReversibleChecker(int startNum, int lastNum) {
+			start = startNum;
+			last = lastNum;
+		}
+		@Override
+		public Integer call() throws Exception {
+			int count = 0;
+			for (int i = start; i <= last; i++) {
+				if (isReversible(i)) count++;
+			}
+			return count;
+		}
 	}
 
 	private static int reverse(int num) {
