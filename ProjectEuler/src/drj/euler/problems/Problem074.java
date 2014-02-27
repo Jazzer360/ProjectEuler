@@ -57,7 +57,7 @@ public class Problem074 {
 		loopSizes.put(2L, 1);
 
 		final AtomicInteger count = new AtomicInteger();
-		
+
 		AsyncComputer<Integer, Void> computer = new AsyncComputer<>(
 				new Computation<Integer, Void>() {
 					@Override
@@ -67,7 +67,7 @@ public class Problem074 {
 					}
 				});
 
-		for (int i = 3; i < 1_000_000; i++) {
+		for (int i = 1; i < 1_000_000; i++) {
 			computer.submit(i);
 		}
 		computer.getOutput();
@@ -80,9 +80,11 @@ public class Problem074 {
 	private static int termsInLoop(long n) {
 		if (loopSizes.containsKey(n)) {
 			return loopSizes.get(n);
+		} else {
+			int size = 1 + termsInLoop(nextTerm(n));
+			loopSizes.put(n, size);
+			return size;
 		}
-
-		return 1 + termsInLoop(nextTerm(n));
 	}
 
 	private static long nextTerm(long n) {

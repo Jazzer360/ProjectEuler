@@ -38,20 +38,19 @@ public class AsyncComputer<I, O> {
 		public void run() {
 			while (true) {
 				try {
-					I in = input.take();
+					I in;
+					synchronized (input) {
+						if (shutdown && input.isEmpty()) {
+							input.notify();
+							break;
+						} else {
+							in = input.take();
+						}
+					}
 					O out = computation.compute(in);
 					if (out != null) output.put(in, out);
 				} catch (InterruptedException e) {
 					interrupted = true;
-				}
-				if (outputRequested) {
-					synchronized (input) {
-						if (input.isEmpty()) {
-							input.notify();
-							exec.shutdown();
-							break;
-						}
-					}
 				}
 			}
 			if (interrupted) Thread.currentThread().interrupt();
@@ -62,7 +61,7 @@ public class AsyncComputer<I, O> {
 	private final ExecutorService exec;
 	private final BlockingQueue<I> input;
 	private final Map<I, O> output;
-	private volatile boolean outputRequested;
+	private volatile boolean shutdown;
 
 	/**
 	 * Creates a new {@link AsyncComputer} with the specified computation to be
@@ -76,7 +75,7 @@ public class AsyncComputer<I, O> {
 		exec = Executors.newFixedThreadPool(cores);
 		input = new LinkedBlockingQueue<>();
 		output = new ConcurrentHashMap<>();
-		outputRequested = false;
+		shutdown = false;
 		for (int i = 0; i < cores; i++) {
 			exec.execute(new ComputationTask());
 		}
@@ -90,7 +89,7 @@ public class AsyncComputer<I, O> {
 	 * @throws InterruptedException if interrupted while waiting for room 
 	 */
 	public void submit(I input) throws InterruptedException {
-		if (outputRequested) throw new IllegalStateException(this + 
+		if (shutdown) throw new IllegalStateException(this + 
 				" cannot accept work after output requested.");
 		this.input.put(input);
 	}
@@ -103,10 +102,11 @@ public class AsyncComputer<I, O> {
 	 * @throws InterruptedException if interrupted while waiting for results
 	 */
 	public Map<I, O> getOutput() throws InterruptedException {
-		outputRequested = true;
+		shutdown = true;
 		synchronized (input) {
 			if (!input.isEmpty()) input.wait();
 		}
+		exec.shutdown();
 		return output;
 	}
 }
