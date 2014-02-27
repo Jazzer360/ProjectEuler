@@ -1,14 +1,11 @@
 package drj.euler.problems;
 
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import drj.euler.AsyncComputer;
+import drj.euler.AsyncComputer.Computation;
 import drj.euler.Utility;
 
 /**
@@ -43,7 +40,7 @@ public class Problem074 {
 
 	private static Map<Long, Integer> loopSizes = new ConcurrentHashMap<>();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Utility.Timer t = new Utility.Timer();
 		t.start();
 
@@ -59,74 +56,25 @@ public class Problem074 {
 		loopSizes.put(1L, 1);
 		loopSizes.put(2L, 1);
 
-		BlockingQueue<Integer> queue = new LinkedBlockingQueue<>();
-		TermChecker checker = new TermChecker(queue, 60);
-		checker.start();
+		final AtomicInteger count = new AtomicInteger();
+		
+		AsyncComputer<Integer, Void> computer = new AsyncComputer<>(
+				new Computation<Integer, Void>() {
+					@Override
+					public Void compute(Integer in) {
+						if (termsInLoop(in) == 60) count.getAndIncrement();
+						return null;
+					}
+				});
 
 		for (int i = 3; i < 1_000_000; i++) {
-			queue.add(i);
+			computer.submit(i);
 		}
+		computer.getOutput();
 
-		System.out.println(checker.getResultAndStop());
+
+		System.out.println(count.get());
 		System.out.println(t.toDecimalString());
-	}
-
-	private static class TermChecker {
-
-		private class CheckerTask implements Runnable {
-			private boolean interrupted = false;
-			@Override
-			public void run() {
-				try {
-					while (queue.peek() != POISON) {
-						try {
-							if (termsInLoop(queue.take()) == targetTermCount) {
-								termsWithTargetCount.getAndIncrement();
-							}
-						} catch (InterruptedException e) {
-							interrupted = true;
-						}
-					}
-				} finally {
-					if (interrupted) Thread.currentThread().interrupt();
-				}
-			}
-		}
-
-		private static final Integer POISON = Integer.valueOf(-1);
-		private BlockingQueue<Integer> queue;
-
-		private ExecutorService exec;
-
-		private int targetTermCount;
-		private AtomicInteger termsWithTargetCount;
-
-		public TermChecker(BlockingQueue<Integer> queue, int targetTermCount) {
-			termsWithTargetCount = new AtomicInteger();
-			int cores = Runtime.getRuntime().availableProcessors();
-			exec = Executors.newFixedThreadPool(cores);
-			this.targetTermCount = targetTermCount;
-			this.queue = queue;
-		}
-
-		public void start() {
-			int cores = Runtime.getRuntime().availableProcessors();
-			for (int i = 0; i < cores; i++) {
-				exec.execute(new CheckerTask());
-			}
-		}
-
-		public int getResultAndStop() {
-			try {
-				queue.put(POISON);
-				exec.shutdown();
-				exec.awaitTermination(1, TimeUnit.DAYS);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			queue.clear();
-			return termsWithTargetCount.get();
-		}
 	}
 
 	private static int termsInLoop(long n) {
