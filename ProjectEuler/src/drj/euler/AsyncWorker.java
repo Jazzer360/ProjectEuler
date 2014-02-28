@@ -113,8 +113,9 @@ public class AsyncWorker<I, O> {
 	}
 
 	/**
-	 * Returns a queue containing all associated output of a specified
-	 * computation. Blocks until the results of all submitted input are ready.
+	 * Returns a map containing all associated output of a specified
+	 * computation mapped to the inputs given. Blocks until the results of all
+	 * submitted input are ready.
 	 * 
 	 * @return	the results of the computation done on the submitted input
 	 * @throws InterruptedException if interrupted while waiting for results
