@@ -1,14 +1,11 @@
 package drj.euler.problems;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import drj.euler.AsyncComputer;
+import drj.euler.AsyncComputer.Computation;
 import drj.euler.Utility;
+import drj.euler.Utility.Range;
 
 /**
  * Some positive integers n have the property that the sum [ n + reverse(n) ]
@@ -22,58 +19,29 @@ import drj.euler.Utility;
  */
 public class Problem145 {
 
-	private static final long THRESHOLD = 1_000_000_000;
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Utility.Timer t = new Utility.Timer();
 		t.start();
 
+		final AtomicInteger count2 = new AtomicInteger();
+		AsyncComputer<Range, Void> computer = new AsyncComputer<>(
+				new Computation<Range, Void>() {
+					@Override
+					public Void compute(Range in) {
+						for (int i = (int) in.from; i <= in.to; i++) {
+							if (isReversible(i)) count2.getAndIncrement();
+						}
+						return null;
+					}
+				});
 		int cores = Runtime.getRuntime().availableProcessors();
-		ExecutorService exec = Executors.newFixedThreadPool(cores);
-
-		List<Future<Integer>> futures = new ArrayList<>();
-
-		for (int i = 0; i < cores; i++) {
-			long start = THRESHOLD * i / cores;
-			long end = THRESHOLD * (i + 1) / cores - 1;
-
-			futures.add(exec.submit(new ReversibleChecker(
-					(int) start, (int) end)));
+		for (Range range : new Range(0, 999_999_999).split(cores)) {
+			computer.submit(range);
 		}
-		exec.shutdown();
+		computer.getOutput();
 
-		int count = 0;
-
-		for (Future<Integer> future : futures) {
-			try {
-				count += future.get();
-			} catch (InterruptedException | ExecutionException e) {
-				e.printStackTrace();
-			}
-		}
-
-		System.out.println(count);
+		System.out.println(count2);
 		System.out.println(t.toDecimalString());
-	}
-
-	private static class ReversibleChecker implements Callable<Integer> {
-
-		private int start;
-		private int last;
-
-		public ReversibleChecker(int startNum, int lastNum) {
-			start = startNum;
-			last = lastNum;
-		}
-
-		@Override
-		public Integer call() throws Exception {
-			int count = 0;
-			for (int i = start; i <= last; i++) {
-				if (isReversible(i)) count++;
-			}
-			return count;
-		}
 	}
 
 	private static int reverse(int num) {
