@@ -14,7 +14,7 @@ import java.util.List;
  * problems at projecteuler.net
  */
 public class Utility {
-	
+
 	private Utility(){}
 
 	/**
@@ -337,6 +337,86 @@ public class Utility {
 			} while (!primeSieve[(int) (index / PARTITION_SIZE)]
 					[(int) (index % PARTITION_SIZE)]);
 			return valueOfIndex(index);
+		}
+	}
+
+	/**
+	 * Represents a range of integers. Utility method included to split the
+	 * range equally into a set of smaller ranges.
+	 */
+	public static class Range {
+		/** Beginning of the range */
+		public final long from;
+		/** End of the range */
+		public final long to;
+
+		/**
+		 * Create a new range with the specified beginning and end. Throws an
+		 * {@link IllegalArgumentException} if the end of the range is less
+		 * than the beginning.
+		 * 
+		 * @param from beginning of the range
+		 * @param to end of the range
+		 */
+		public Range(long from, long to) {
+			if (from >= to) throw new IllegalArgumentException(
+					"to argument must be > from argument");
+			this.from = from;
+			this.to = to;
+		}
+
+		/**
+		 * Splits the range into equal parts specified by the parts param.
+		 * 
+		 * @param parts number of parts to split range into
+		 * @return array of sub-ranges that fully represent the initial range
+		 */
+		public Range[] split(int parts) {
+			Range[] ranges = new Range[parts];
+
+			long from = this.from;
+			long range = to - from + 1;
+			long rangeSize = range / parts;
+			long remainder = range % parts;
+
+			for (int i = 0; i < parts; i++) {
+				long newFrom = from;
+				long newTo = newFrom + rangeSize - (remainder-- > 0 ? 0 : 1);
+				from = newTo + 1;
+				ranges[i] = new Range(newFrom, newTo);
+			}
+
+			return ranges;
+		}
+
+		@Override
+		public String toString() {
+			return "Range: [" + from + " - " + to + "]";
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + (int) (from ^ (from >>> 32));
+			result = prime * result + (int) (to ^ (to >>> 32));
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Range other = (Range) obj;
+			if (from != other.from)
+				return false;
+			if (to != other.to)
+				return false;
+			return true;
 		}
 	}
 
