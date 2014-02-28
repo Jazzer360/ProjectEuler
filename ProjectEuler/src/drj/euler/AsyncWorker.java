@@ -67,6 +67,7 @@ public class AsyncWorker<I, O> {
 	private final Map<I, O> output;
 	private final CountDownLatch latch;
 	private volatile boolean shutdown;
+
 	/**
 	 * Creates a new {@link AsyncWorker} with the specified computation to be
 	 * performed on submitted input.
@@ -100,6 +101,18 @@ public class AsyncWorker<I, O> {
 	}
 
 	/**
+	 * Blocks until all submitted input has been processed. Tells the worker
+	 * to shut down, so no more work may be submitted.
+	 * 
+	 * @throws InterruptedException if interrupted while waiting
+	 */
+	public void waitFor() throws InterruptedException {
+		shutdown = true;
+		exec.shutdown();
+		latch.await();
+	}
+
+	/**
 	 * Returns a queue containing all associated output of a specified
 	 * computation. Blocks until the results of all submitted input are ready.
 	 * 
@@ -107,9 +120,7 @@ public class AsyncWorker<I, O> {
 	 * @throws InterruptedException if interrupted while waiting for results
 	 */
 	public Map<I, O> getOutput() throws InterruptedException {
-		shutdown = true;
-		exec.shutdown();
-		latch.await();
+		waitFor();
 		return output;
 	}
 }
