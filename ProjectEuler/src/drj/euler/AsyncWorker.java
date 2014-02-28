@@ -14,7 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @param <I> type of input for the computation
  * @param <O> type of output for the computation
  */
-public class AsyncComputer<I, O> {
+public class AsyncWorker<I, O> {
 	/**
 	 * Defines a common interface for a computation that may be performed on
 	 * the specified input, and returns the specified output.
@@ -67,12 +67,12 @@ public class AsyncComputer<I, O> {
 	private volatile boolean shutdown;
 
 	/**
-	 * Creates a new {@link AsyncComputer} with the specified computation to be
+	 * Creates a new {@link AsyncWorker} with the specified computation to be
 	 * performed on submitted input.
 	 * 
 	 * @param computation the computation to perform on supplied input
 	 */
-	public AsyncComputer(Computation<I, O> computation) {
+	public AsyncWorker(Computation<I, O> computation) {
 		this.computation = computation;
 		int cores = Runtime.getRuntime().availableProcessors();
 		exec = Executors.newFixedThreadPool(cores);

@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import drj.euler.AsyncComputer;
-import drj.euler.AsyncComputer.Computation;
+import drj.euler.AsyncWorker;
+import drj.euler.AsyncWorker.Computation;
 import drj.euler.Utility;
 
 /**
@@ -58,7 +58,7 @@ public class Problem074 {
 
 		final AtomicInteger count = new AtomicInteger();
 
-		AsyncComputer<Integer, Void> computer = new AsyncComputer<>(
+		AsyncWorker<Integer, Void> computer = new AsyncWorker<>(
 				new Computation<Integer, Void>() {
 					@Override
 					public Void compute(Integer in) {

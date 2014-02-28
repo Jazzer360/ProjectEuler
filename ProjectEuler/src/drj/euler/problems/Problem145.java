@@ -2,8 +2,8 @@ package drj.euler.problems;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import drj.euler.AsyncComputer;
-import drj.euler.AsyncComputer.Computation;
+import drj.euler.AsyncWorker;
+import drj.euler.AsyncWorker.Computation;
 import drj.euler.Utility;
 import drj.euler.Utility.Range;
 
@@ -24,7 +24,7 @@ public class Problem145 {
 		t.start();
 
 		final AtomicInteger count = new AtomicInteger();
-		AsyncComputer<Range, Void> computer = new AsyncComputer<>(
+		AsyncWorker<Range, Void> computer = new AsyncWorker<>(
 				new Computation<Range, Void>() {
 					@Override
 					public Void compute(Range in) {
