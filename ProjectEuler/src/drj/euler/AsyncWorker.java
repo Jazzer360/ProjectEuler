@@ -3,6 +3,7 @@ package drj.euler;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -42,7 +43,6 @@ public class AsyncWorker<I, O> {
 						I in;
 						synchronized (input) {
 							if (shutdown && input.isEmpty()) {
-								input.notify();
 								break;
 							} else {
 								in = input.take();
@@ -55,6 +55,7 @@ public class AsyncWorker<I, O> {
 					}
 				}
 			} finally {
+				latch.countDown();
 				if (interrupted) Thread.currentThread().interrupt();
 			}
 		}
@@ -64,8 +65,8 @@ public class AsyncWorker<I, O> {
 	private final ExecutorService exec;
 	private final BlockingQueue<I> input;
 	private final Map<I, O> output;
+	private final CountDownLatch latch;
 	private volatile boolean shutdown;
-
 	/**
 	 * Creates a new {@link AsyncWorker} with the specified computation to be
 	 * performed on submitted input.
@@ -74,12 +75,13 @@ public class AsyncWorker<I, O> {
 	 */
 	public AsyncWorker(Computation<I, O> computation) {
 		this.computation = computation;
-		int cores = Runtime.getRuntime().availableProcessors();
-		exec = Executors.newFixedThreadPool(cores);
+		int threads = Runtime.getRuntime().availableProcessors() + 1;
+		exec = Executors.newFixedThreadPool(threads);
 		input = new LinkedBlockingQueue<>();
 		output = new ConcurrentHashMap<>();
+		latch = new CountDownLatch(threads);
 		shutdown = false;
-		for (int i = 0; i < cores; i++) {
+		for (int i = 0; i < threads; i++) {
 			exec.execute(new ComputationTask());
 		}
 	}
@@ -106,10 +108,8 @@ public class AsyncWorker<I, O> {
 	 */
 	public Map<I, O> getOutput() throws InterruptedException {
 		shutdown = true;
-		synchronized (input) {
-			if (!input.isEmpty()) input.wait();
-		}
 		exec.shutdown();
+		latch.await();
 		return output;
 	}
 }
