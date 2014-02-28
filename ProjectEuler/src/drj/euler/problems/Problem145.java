@@ -38,7 +38,7 @@ public class Problem145 {
 		for (Range range : new Range(0, 999_999_999).split(cores)) {
 			computer.submit(range);
 		}
-		computer.getOutput();
+		computer.waitFor();
 
 		System.out.println(count);
 		System.out.println(t.toDecimalString());
