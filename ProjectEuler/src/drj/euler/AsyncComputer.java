@@ -36,24 +36,27 @@ public class AsyncComputer<I, O> {
 		private boolean interrupted = false;
 		@Override
 		public void run() {
-			while (true) {
-				try {
-					I in;
-					synchronized (input) {
-						if (shutdown && input.isEmpty()) {
-							input.notify();
-							break;
-						} else {
-							in = input.take();
+			try {
+				while (true) {
+					try {
+						I in;
+						synchronized (input) {
+							if (shutdown && input.isEmpty()) {
+								input.notify();
+								break;
+							} else {
+								in = input.take();
+							}
 						}
+						O out = computation.compute(in);
+						if (out != null) output.put(in, out);
+					} catch (InterruptedException e) {
+						interrupted = true;
 					}
-					O out = computation.compute(in);
-					if (out != null) output.put(in, out);
-				} catch (InterruptedException e) {
-					interrupted = true;
 				}
+			} finally {
+				if (interrupted) Thread.currentThread().interrupt();
 			}
-			if (interrupted) Thread.currentThread().interrupt();
 		}
 	}
 
