@@ -405,17 +405,12 @@ public class Utility {
 
 		@Override
 		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (!(obj instanceof Range))
-				return false;
+			if (this == obj) return true;
+			if (obj == null) return false;
+			if (!(obj instanceof Range)) return false;
 			Range other = (Range) obj;
-			if (from != other.from)
-				return false;
-			if (to != other.to)
-				return false;
+			if (from != other.from) return false;
+			if (to != other.to) return false;
 			return true;
 		}
 	}
