@@ -23,13 +23,13 @@ public class Problem145 {
 		Utility.Timer t = new Utility.Timer();
 		t.start();
 
-		final AtomicInteger count2 = new AtomicInteger();
+		final AtomicInteger count = new AtomicInteger();
 		AsyncComputer<Range, Void> computer = new AsyncComputer<>(
 				new Computation<Range, Void>() {
 					@Override
 					public Void compute(Range in) {
 						for (int i = (int) in.from; i <= in.to; i++) {
-							if (isReversible(i)) count2.getAndIncrement();
+							if (isReversible(i)) count.getAndIncrement();
 						}
 						return null;
 					}
@@ -40,7 +40,7 @@ public class Problem145 {
 		}
 		computer.getOutput();
 
-		System.out.println(count2);
+		System.out.println(count);
 		System.out.println(t.toDecimalString());
 	}
 
