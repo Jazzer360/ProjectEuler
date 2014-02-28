@@ -409,7 +409,7 @@ public class Utility {
 				return true;
 			if (obj == null)
 				return false;
-			if (getClass() != obj.getClass())
+			if (!(obj instanceof Range))
 				return false;
 			Range other = (Range) obj;
 			if (from != other.from)
