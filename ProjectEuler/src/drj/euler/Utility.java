@@ -13,7 +13,7 @@ import java.util.List;
  * to assist in the writing of programs specifically targeted at solving the
  * problems at projecteuler.net
  */
-public class Utility {
+public final class Utility {
 
 	private Utility(){}
 

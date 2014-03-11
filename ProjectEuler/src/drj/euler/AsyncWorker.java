@@ -106,7 +106,7 @@ public class AsyncWorker<I, O> {
 	 * 
 	 * @throws InterruptedException if interrupted while waiting
 	 */
-	public void waitFor() throws InterruptedException {
+	public void finish() throws InterruptedException {
 		shutdown = true;
 		exec.shutdown();
 		latch.await();
@@ -121,7 +121,7 @@ public class AsyncWorker<I, O> {
 	 * @throws InterruptedException if interrupted while waiting for results
 	 */
 	public Map<I, O> getOutput() throws InterruptedException {
-		waitFor();
+		finish();
 		return output;
 	}
 }

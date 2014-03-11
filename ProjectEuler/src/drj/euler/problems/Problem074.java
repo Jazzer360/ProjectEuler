@@ -70,7 +70,7 @@ public class Problem074 {
 		for (int i = 1; i < 1_000_000; i++) {
 			computer.submit(i);
 		}
-		computer.getOutput();
+		computer.finish();
 
 
 		System.out.println(count.get());
