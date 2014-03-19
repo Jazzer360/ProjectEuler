@@ -28,10 +28,9 @@ public class Problem022 {
 		String filePath = "external data/names.txt";
 		List<String> names = new ArrayList<String>();
 
-		for (String line : Utility.getFileContents(filePath)) {
-			for (String name : line.split(",")) {
-				names.add(name.replace("\"", ""));
-			}
+		String line = Utility.getFileContents(filePath).get(0);
+		for (String name : line.split(",")) {
+			names.add(name.replace("\"", ""));
 		}
 		Collections.sort(names);
 

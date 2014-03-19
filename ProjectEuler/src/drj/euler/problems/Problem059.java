@@ -42,10 +42,9 @@ public class Problem059 {
 		String filePath = "external data/cipher1.txt";
 		List<Integer> encrypted = new ArrayList<Integer>();
 
-		for (String line : Utility.getFileContents(filePath)) {
-			for (String code : line.split(",")) {
-				encrypted.add(Integer.parseInt(code));
-			}
+		String line = Utility.getFileContents(filePath).get(0);
+		for (String code : line.split(",")) {
+			encrypted.add(Integer.parseInt(code));
 		}
 
 		char[] key = {'a', 'a', 'a'};

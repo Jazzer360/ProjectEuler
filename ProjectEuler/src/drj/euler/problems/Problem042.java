@@ -29,10 +29,9 @@ public class Problem042 {
 		String filePath = "external data/words.txt";
 		List<String> words = new ArrayList<String>();
 
-		for (String line : Utility.getFileContents(filePath)) {
-			for (String word : line.split(",")) {
-				words.add(word.replace("\"", ""));
-			}
+		String line = Utility.getFileContents(filePath).get(0);
+		for (String word : line.split(",")) {
+			words.add(word.replace("\"", ""));
 		}
 
 		int triangleWordCount = 0;
