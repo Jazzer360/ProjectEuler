@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import drj.euler.Utility;
 
@@ -47,7 +47,7 @@ public class Problem047 {
 		System.out.println(t.toDecimalString());
 	}
 
-	private static int numberOfPrimes(ArrayList<Integer> list) {
+	private static int numberOfPrimes(List<Integer> list) {
 		int count = 0;
 
 		for (int num : list) {

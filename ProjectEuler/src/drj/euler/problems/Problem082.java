@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import drj.euler.Utility;
 
@@ -32,7 +32,7 @@ public class Problem082 {
 		t.start();
 
 		String filePath = "external data/matrix3.txt";
-		ArrayList<String> lines = Utility.getFileContents(filePath);
+		List<String> lines = Utility.getFileContents(filePath);
 
 		nums = new long[lines.size()][];
 		sums = new long[lines.size()][];

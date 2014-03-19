@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import drj.euler.Utility;
 
@@ -42,7 +42,7 @@ public class Problem089 {
 
 		String filePath = "external data/roman.txt";
 
-		ArrayList<String> numerals = Utility.getFileContents(filePath);
+		List<String> numerals = Utility.getFileContents(filePath);
 		int startCount = 0;
 		int endCount = 0;
 

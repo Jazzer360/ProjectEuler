@@ -416,21 +416,21 @@ public final class Utility {
 	}
 
 	/**
-	 * Returns an ArrayList{@literal<String>} with each element in the list
+	 * Returns a List{@literal<String>} with each element in the list
 	 * containing a string of one line in a file. The location of the file is
 	 * passed via the parameter of this method.
 	 * 
 	 * @param filePath	String containing the path to the file to retrieve
 	 * 					contents of
-	 * @return			ArrayList{@literal<String>} containing the contents of
+	 * @return			List{@literal<String>} containing the contents of
 	 * 					the file
 	 * @throws IllegalArgumentException
 	 * 					if the path given causes an error during the opening or
 	 * 					closing process
 	 */
-	public static ArrayList<String> getFileContents(String filePath) {
+	public static List<String> getFileContents(String filePath) {
 		BufferedReader inputStream = null;
-		ArrayList<String> lines = new ArrayList<String>();
+		List<String> lines = new ArrayList<String>();
 
 		try {
 			inputStream = new BufferedReader(new FileReader(filePath));
@@ -496,22 +496,22 @@ public final class Utility {
 	}
 
 	/**
-	 * Returns an ArrayList{@literal<Integer>} of the factors of the passed
+	 * Returns a List{@literal<Integer>} of the factors of the passed
 	 * parameter. The returned list is sorted from smallest to largest.
 	 * 
 	 * @param num	int value to find the factors of
-	 * @return		ArrayList{@literal<Integer>} containing the factors of the
+	 * @return		List{@literal<Integer>} containing the factors of the
 	 * 				passed parameter
 	 * @throws IllegalArgumentException
 	 * 				if the passed parameter is less than 1
 	 */
-	public static ArrayList<Integer> getFactors(int num) {
+	public static List<Integer> getFactors(int num) {
 		if (num < 1) {
 			throw new IllegalArgumentException(
 					"Cannot get factors for a number less than 1");
 		}
 
-		ArrayList<Integer> factors = new ArrayList<Integer>();
+		List<Integer> factors = new ArrayList<Integer>();
 
 		for (int i = 1; i <= Math.sqrt(num); i++) {
 			if (num % i == 0) {
@@ -579,10 +579,10 @@ public final class Utility {
 	 * @param nth		the nth permutation of the passed digits to find
 	 * @return			the nth permutation of the passed digits
 	 */
-	public static long getPermutation(ArrayList<Integer> digits, int nth) {
+	public static long getPermutation(List<Integer> digits, int nth) {
 		StringBuilder output = new StringBuilder();
 
-		ArrayList<Integer> nums = new ArrayList<Integer>();
+		List<Integer> nums = new ArrayList<Integer>();
 		nums.addAll(digits);
 
 		for (int i = nums.size() - 1; i >= 0; i--) {
@@ -701,7 +701,7 @@ public final class Utility {
 	 * 				than 0 or greater than 9
 	 */
 	public static boolean isPandigital(int beg, int end,
-			ArrayList<Integer> nums) {
+			List<Integer> nums) {
 		if (beg > end) {
 			throw new IllegalArgumentException(
 					"The parameter end must be greater than beg");
