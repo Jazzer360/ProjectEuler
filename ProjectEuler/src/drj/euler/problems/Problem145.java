@@ -3,7 +3,6 @@ package drj.euler.problems;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import drj.euler.AsyncWorker;
-import drj.euler.AsyncWorker.Computation;
 import drj.euler.Utility;
 import drj.euler.Utility.Range;
 
@@ -25,14 +24,11 @@ public class Problem145 {
 
 		final AtomicInteger count = new AtomicInteger();
 		AsyncWorker<Range, Void> computer = new AsyncWorker<>(
-				new Computation<Range, Void>() {
-					@Override
-					public Void compute(Range in) {
-						for (int i = (int) in.from; i <= in.to; i++) {
-							if (isReversible(i)) count.getAndIncrement();
-						}
-						return null;
+				in -> {
+					for (int i = (int) in.from; i <= in.to; i++) {
+						if (isReversible(i)) count.getAndIncrement();
 					}
+					return null;
 				});
 		int cores = Runtime.getRuntime().availableProcessors();
 		for (Range range : new Range(0, 999_999_999).split(cores)) {

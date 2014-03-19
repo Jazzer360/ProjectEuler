@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import drj.euler.AsyncWorker;
-import drj.euler.AsyncWorker.Computation;
 import drj.euler.Utility;
 
 /**
@@ -59,19 +58,15 @@ public class Problem074 {
 		final AtomicInteger count = new AtomicInteger();
 
 		AsyncWorker<Integer, Void> computer = new AsyncWorker<>(
-				new Computation<Integer, Void>() {
-					@Override
-					public Void compute(Integer in) {
-						if (termsInLoop(in) == 60) count.getAndIncrement();
-						return null;
-					}
+				in -> {
+					if (termsInLoop(in) == 60) count.getAndIncrement();
+					return null;
 				});
 
 		for (int i = 1; i < 1_000_000; i++) {
 			computer.submit(i);
 		}
 		computer.finish();
-
 
 		System.out.println(count.get());
 		System.out.println(t.toDecimalString());

@@ -7,6 +7,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.function.Function;
 
 /**
  * A class to handle the asynchronous computation of a set of input as well as
@@ -16,22 +17,6 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @param <O> type of output for the computation
  */
 public class AsyncWorker<I, O> {
-	/**
-	 * Defines a common interface for a computation that may be performed on
-	 * the specified input, and returns the specified output.
-	 *
-	 * @param <I> input
-	 * @param <O> output
-	 */
-	public interface Computation<I, O> {
-		/**
-		 * Returns the output of a computation done on the desired input.
-		 * 
-		 * @param in input
-		 * @return the outcome of the computation
-		 */
-		public O compute(I in);
-	}
 
 	private class ComputationTask implements Runnable {
 		private boolean interrupted = false;
@@ -48,7 +33,7 @@ public class AsyncWorker<I, O> {
 								in = input.take();
 							}
 						}
-						O out = computation.compute(in);
+						O out = computation.apply(in);
 						if (out != null) output.put(in, out);
 					} catch (InterruptedException e) {
 						interrupted = true;
@@ -61,7 +46,7 @@ public class AsyncWorker<I, O> {
 		}
 	}
 
-	private final Computation<I, O> computation;
+	private final Function<I, O> computation;
 	private final ExecutorService exec;
 	private final BlockingQueue<I> input;
 	private final Map<I, O> output;
@@ -74,7 +59,7 @@ public class AsyncWorker<I, O> {
 	 * 
 	 * @param computation the computation to perform on supplied input
 	 */
-	public AsyncWorker(Computation<I, O> computation) {
+	public AsyncWorker(Function<I, O> computation) {
 		this.computation = computation;
 		int threads = Runtime.getRuntime().availableProcessors() + 1;
 		exec = Executors.newFixedThreadPool(threads);
