@@ -520,7 +520,7 @@ public final class Utility {
 				factors.add(num / i);
 			}
 		}
-		if (num % (int) root == 0) factors.add((int) root);
+		if (root % 1 == 0) factors.add((int) root);
 
 		Collections.sort(factors);
 
@@ -862,7 +862,7 @@ public final class Utility {
 	 * Returns true if the passed number is square.
 	 * 
 	 * @param num	number to check if
-	 * @return		true if number is triangular, otherwise false
+	 * @return		true if number is a perfect square, otherwise false
 	 */
 	public static boolean isSquare(long num) {
 		return Math.sqrt(num) % 1 == 0 ? true : false;
