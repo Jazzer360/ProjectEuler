@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -8,31 +9,28 @@ import drj.euler.Utility;
  *
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
-public class Problem004 {
+public class Problem004 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem004();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int maxFound = 0;
 
 		for (int i = 999; i >= 100; i--) {
 			for (int j = 999; j >=100; j--) {
 				int n = i * j;
 				if (n > maxFound) {
-					if (isPalindrome(n)) maxFound = n;
+					if (Utility.isPalindrome(n)) maxFound = n;
 				} else {
 					break;
 				}
 			}
 		}
 
-		System.out.println(maxFound);
-		System.out.println(t.toDecimalString());
-	}
-	
-	private static boolean isPalindrome(int num) {
-		return String.valueOf(num).equals(
-				new StringBuilder(String.valueOf(num)).reverse().toString());
+		return String.valueOf(maxFound);
 	}
 }

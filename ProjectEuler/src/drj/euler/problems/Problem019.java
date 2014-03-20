@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * You are given the following information, but you may prefer to do some
@@ -23,12 +23,15 @@ import drj.euler.Utility;
  * unless it is divisible by 400. How many Sundays fell on the first of the
  * month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
  */
-public class Problem019 {
+public class Problem019 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem019();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int sundays = 0;
 
 		LocalDate date = LocalDate.of(1901, Month.JANUARY, 1);
@@ -37,7 +40,6 @@ public class Problem019 {
 			date = date.plusMonths(1);
 		}
 
-		System.out.println(sundays);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sundays);
 	}
 }

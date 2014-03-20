@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * If we list all the natural numbers below 10 that are multiples of 3 or 5,
@@ -8,12 +8,15 @@ import drj.euler.Utility;
  * 
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
-public class Problem001 {
+public class Problem001 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem001();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int sumOfMultiples = 0;
 
 		for (int i = 0; i < 1000; i++) {
@@ -21,7 +24,7 @@ public class Problem001 {
 				sumOfMultiples += i;
 			}
 		}
-		System.out.println(sumOfMultiples);
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(sumOfMultiples);
 	}
 }

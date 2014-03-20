@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -11,20 +12,20 @@ import drj.euler.Utility;
  * 			  *
  * How many such routes are there through a 20 x 20 grid?
  */
-public class Problem015 {
+public class Problem015 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem015();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int shortSide = 20;
 		int sumOfSides = 40;
 
-		System.out.println(
-				Utility.factorial(sumOfSides).divide(
-						Utility.factorial(shortSide).multiply(
-								Utility.factorial(sumOfSides - shortSide)))
-				);
-		System.out.println(t.toDecimalString());
+		return Utility.factorial(sumOfSides).divide(
+				Utility.factorial(shortSide).multiply(
+						Utility.factorial(sumOfSides - shortSide))).toString();
 	}
 }

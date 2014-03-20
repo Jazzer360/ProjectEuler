@@ -1,5 +1,7 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
+
 /**
  * If the numbers 1 to 5 are written out in words: one, two, three, four, five,
  * then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
@@ -12,10 +14,15 @@ package drj.euler.problems;
  * letters. The use of "and" when writing out numbers is in compliance with
  * British usage.
  */
-public class Problem017 {
+public class Problem017 extends Problem {
 
 	public static void main(String[] args) {
+		Problem p = new Problem017();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		final int AND = 3*891;		//101-199, 201-299 ... 801-899, 901-999 = 891	891	- 2673
 		final int ONE = 3*191;		//1, 21, 31 ... 81, 91 = 9 * 10 = 90			191	- 573
 									//100, 101, 102 ... 198, 199 = 100 
@@ -52,7 +59,7 @@ public class Problem017 {
 		final int NINETY = 6*100;	//												100	- 600
 		final int HUNDRED = 7*900;	//100-199, 200-299 ... 900-999					900	- 6400
 		final int THOUSAND = 8*1;	//1000											1	- 8
-		
+
 		// 1-9: 36
 		// 10-19: 70
 		// 20-29: 6*10 + 36 = 96
@@ -66,8 +73,8 @@ public class Problem017 {
 		// 100-109 (3 + 7)*10 + 3*9 + 36 = 163
 		// 110-119 (3 + 7)*10 + 3*10 + 70 = 200
 		// 120-129 (
-		
-		System.out.println(AND + ONE + TWO + THREE + FOUR + FIVE + SIX + SEVEN + 
+
+		return String.valueOf(AND + ONE + TWO + THREE + FOUR + FIVE + SIX + SEVEN + 
 				EIGHT + NINE + TEN + ELEVEN + TWELVE + THIRTEEN + FOURTEEN + FIFTEEN +
 				SIXTEEN + SEVENTEEN + EIGHTEEN + NINETEEN + TWENTY + THIRTY + FORTY + 
 				FIFTY + SIXTY + SEVENTY + EIGHTY + NINETY + HUNDRED + THOUSAND);

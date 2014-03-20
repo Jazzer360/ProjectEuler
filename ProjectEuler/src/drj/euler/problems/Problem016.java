@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -9,12 +10,15 @@ import drj.euler.Utility;
  * 
  * What is the sum of the digits of the number 2^1000?
  */
-public class Problem016 {
+public class Problem016 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem016();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		BigInteger num = BigInteger.valueOf(2).pow(1000);
 		int sum = 0;
 
@@ -22,7 +26,6 @@ public class Problem016 {
 			sum += Utility.charToInt(digit);
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 }

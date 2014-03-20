@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * The following iterative sequence is defined for the set of positive integers:
@@ -25,7 +25,12 @@ import drj.euler.Utility;
  * 
  * NOTE: Once the chain starts the terms are allowed to go above one million.
  */
-public class Problem014 {
+public class Problem014 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem014();
+		System.out.println(p);
+	}
 
 	private static final BigInteger THREE = BigInteger.valueOf(3);
 	private static final BigInteger TWO = BigInteger.valueOf(2);
@@ -34,10 +39,8 @@ public class Problem014 {
 	private static final Map<BigInteger, Integer> COLLATZ_LENGTH_CACHE =
 			new HashMap<BigInteger, Integer>();
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		int maxStart = 2;
 		int maxLength = 2;
 
@@ -49,8 +52,7 @@ public class Problem014 {
 			}
 		}
 
-		System.out.println(maxStart);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(maxStart);
 	}
 
 	private static int getCollatzLength(BigInteger num) {

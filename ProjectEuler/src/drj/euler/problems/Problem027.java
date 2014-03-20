@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -27,12 +28,15 @@ import drj.euler.Utility;
  * that produces the maximum number of primes for consecutive values of n,
  * starting with n = 0.
  */
-public class Problem027 {
+public class Problem027 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem027();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int maxPrimeCount = 0;
 		int maxPrimeA = -999;
 		int maxPrimeB = -999;
@@ -49,8 +53,7 @@ public class Problem027 {
 			}
 		}
 
-		System.out.println(maxPrimeA * maxPrimeB);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(maxPrimeA * maxPrimeB);
 	}
 
 	private static boolean returnsPrime(int a, int b, int n) {

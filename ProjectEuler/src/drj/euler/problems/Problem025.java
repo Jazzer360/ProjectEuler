@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * The Fibonacci sequence is defined by the recurrence relation:
@@ -30,12 +30,15 @@ import drj.euler.Utility;
  * 
  * What is the first term in the Fibonacci sequence to contain 1000 digits?
  */
-public class Problem025 {
+public class Problem025 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem025();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		Map<Integer, BigInteger> fibonacciNumbers =
 				new HashMap<Integer, BigInteger>();
 		fibonacciNumbers.put(1, BigInteger.valueOf(1));
@@ -52,7 +55,7 @@ public class Problem025 {
 				term = i;
 			}
 		}
-		System.out.println(term);
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(term);
 	}
 }

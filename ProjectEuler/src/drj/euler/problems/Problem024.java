@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -16,7 +17,12 @@ import drj.euler.Utility;
  * What is the millionth lexicographic permutation of the digits
  * 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
  */
-public class Problem024 {
+public class Problem024 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem024();
+		System.out.println(p);
+	}
 
 	/*
 	 * There is 10! permutations of the digits 0123456789.
@@ -45,16 +51,13 @@ public class Problem024 {
 	 * 
 	 * The searched-for permutation thus is: 2783915460.
 	 */
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		List<Integer> digits = new ArrayList<Integer>();
 		for (int i = 0; i <= 9; i++) {
 			digits.add(i);
 		}
 
-		System.out.println(Utility.getPermutation(digits, 1_000_000));
-		System.out.println(t.toDecimalString());
+		return String.valueOf(Utility.getPermutation(digits, 1_000_000));
 	}
 }

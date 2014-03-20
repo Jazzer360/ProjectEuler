@@ -2,7 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * A unit fraction contains 1 in the numerator. The decimal representation of
@@ -24,14 +24,17 @@ import drj.euler.Utility;
  * Find the value of d < 1000 for which 1/d contains the longest recurring
  * cycle in its decimal fraction part.
  */
-public class Problem026 {
+public class Problem026 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem026();
+		System.out.println(p);
+	}
 
 	private static BigInteger k = BigInteger.TEN.pow(10);
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		int maxReciprocal = 2;
 		int maxPeriod = 0;
 
@@ -44,8 +47,8 @@ public class Problem026 {
 				}
 			}
 		}
-		System.out.println(maxReciprocal);
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(maxReciprocal);
 	}
 
 	private static boolean reciprocalTerminates(int n) {

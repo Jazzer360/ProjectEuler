@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -8,12 +9,15 @@ import drj.euler.Utility;
  * 
  * What is the 10 001st prime number?
  */
-public class Problem007 {
+public class Problem007 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem007();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		Utility.PrimeSieve p = new Utility.PrimeSieve();
 
 		int prime = 1;
@@ -21,7 +25,6 @@ public class Problem007 {
 			prime = (int) p.nextPrime(prime);
 		}
 
-		System.out.println(prime);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(prime);
 	}
 }

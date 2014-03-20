@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * The sum of the squares of the first ten natural numbers is,
@@ -15,12 +15,15 @@ import drj.euler.Utility;
  * Find the difference between the sum of the squares of the first one hundred
  * natural numbers and the square of the sum.
  */
-public class Problem006 {
+public class Problem006 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem006();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int sumOfSquares = 0;
 		int squareOfSum = 0;
 
@@ -30,7 +33,6 @@ public class Problem006 {
 
 		squareOfSum = (int) Math.pow((100 * 101) / 2, 2);
 
-		System.out.println(squareOfSum - sumOfSquares);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(squareOfSum - sumOfSquares);
 	}
 }

@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -7,12 +8,15 @@ import drj.euler.Utility;
  * 
  * Find the sum of all the primes below two million.
  */
-public class Problem010 {
+public class Problem010 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem010();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		Utility.PrimeSieve p = new Utility.PrimeSieve(1_999_999);
 
 		long sum = 0;
@@ -23,7 +27,6 @@ public class Problem010 {
 			sum += prime;
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 }

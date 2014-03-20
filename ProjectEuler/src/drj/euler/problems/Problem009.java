@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * A Pythagorean triplet is a set of three natural numbers, a < b < c, for
@@ -12,39 +12,36 @@ import drj.euler.Utility;
  * There exists exactly one Pythagorean triplet for which a + b + c = 1000.
  * Find the product abc.
  */
-public class Problem009 {
+public class Problem009 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem009();
+		System.out.println(p);
+	}
 
-		loop:
-			for (int a = 1; a < 1000; a++) {
-				for (int b = a + 1; true; b++) {
-					if (a + b > 1000) {
+	@Override
+	protected String onSolve() {
+		for (int a = 1; a < 1000; a++) {
+			for (int b = a + 1; true; b++) {
+				if (a + b > 1000) {
+					break;
+				}
+				for (int c = b + 1; true; c++) {
+					if (a + b + c > 1000) {
 						break;
 					}
-					for (int c = b + 1; true; c++) {
-						if (a + b + c > 1000) {
-							break;
-						}
-						if (a + b + c == 1000 && isPythagoreanTriplet(a,b,c)) {
-							System.out.println(a * b * c);
-							break loop;
-						}
+					if (a + b + c == 1000 && isPythagoreanTriplet(a,b,c)) {
+						return String.valueOf(a * b * c);
 					}
 				}
 			}
+		}
 
-		System.out.println(t.toDecimalString());
+		return null;
 	}
 
 	private static boolean isPythagoreanTriplet(int a, int b, int c) {
-		if ((a*a) + (b*b) == (c*c)) {
-			return true;
-		} else {
-			return false;
-		}
+		return (a*a) + (b*b) == (c*c) ? true : false;
 	}
 }
 

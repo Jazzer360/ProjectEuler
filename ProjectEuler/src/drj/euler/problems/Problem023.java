@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.HashSet;
 import java.util.Set;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -24,12 +25,15 @@ import drj.euler.Utility;
  * Find the sum of all the positive integers which cannot be written as the sum
  * of two abundant numbers.
  */
-public class Problem023 {
+public class Problem023 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem023();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		Set<Integer> abundants = new HashSet<Integer>();
 
 		for (int i = 12; i <= 28123; i++) {
@@ -53,8 +57,7 @@ public class Problem023 {
 			}
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 
 	private static boolean isAbundant(int num) {

@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -7,12 +8,15 @@ import drj.euler.Utility;
  * 
  * What is the largest prime factor of the number 600851475143 ?
  */
-public class Problem003 {
+public class Problem003 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem003();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		long num = 600851475143L;
 		long maxPrimeFactor = 2;
 
@@ -28,7 +32,7 @@ public class Problem003 {
 				}
 			}
 		}
-		System.out.println(maxPrimeFactor);
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(maxPrimeFactor);
 	}
 }

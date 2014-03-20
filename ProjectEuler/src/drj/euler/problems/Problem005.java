@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * 2520 is the smallest number that can be divided by each of the numbers from
@@ -9,12 +9,15 @@ import drj.euler.Utility;
  * What is the smallest positive number that is evenly divisible by all of the
  * numbers from 1 to 20?
  */
-public class Problem005 {
+public class Problem005 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem005();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int seeking = 20;
 		int answer = 0;
 		boolean answerFound = false;
@@ -30,7 +33,6 @@ public class Problem005 {
 			}
 		}
 
-		System.out.println(answer);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(answer);
 	}
 }

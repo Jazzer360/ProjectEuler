@@ -370,8 +370,12 @@ public final class Utility {
 		 * 
 		 * @param parts number of parts to split range into
 		 * @return array of sub-ranges that fully represent the initial range
+		 * @throws IllegalArgumentException if number of parts exceeds the
+		 * 		number of values in the range
 		 */
 		public Range[] split(int parts) {
+			if (parts > (to - from + 1) / 2) throw new IllegalArgumentException(
+					"range not large enough to split into " + parts);
 			Range[] ranges = new Range[parts];
 
 			long from = this.from;

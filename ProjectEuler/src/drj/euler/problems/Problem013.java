@@ -2,7 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * Work out the first ten digits of the sum of the following one-hundred
@@ -109,12 +109,15 @@ import drj.euler.Utility;
  * 20849603980134001723930671666823555245252804609722
  * 53503534226472524250874054075591789781264330331690
  */
-public class Problem013 {
+public class Problem013 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem013();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String[] numbers = {
 				"37107287533902102798797998220837590246510135740250" ,
 				"46376937677490009712648124896970078050417018260538" ,
@@ -223,7 +226,6 @@ public class Problem013 {
 			sum = sum.add(new BigInteger(num));
 		}
 
-		System.out.println(sum.toString().substring(0, 10));
-		System.out.println(t.toDecimalString());
+		return sum.toString().substring(0, 10);
 	}
 }

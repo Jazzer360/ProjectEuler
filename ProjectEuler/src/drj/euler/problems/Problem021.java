@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.HashSet;
 import java.util.Set;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -17,12 +18,15 @@ import drj.euler.Utility;
  * 
  * Evaluate the sum of all the amicable numbers under 10000.
  */
-public class Problem021 {
+public class Problem021 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem021();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		Set<Integer> amicables = new HashSet<Integer>();
 
 		for (int a = 2; a < 10000; a++) {
@@ -52,8 +56,7 @@ public class Problem021 {
 			amicablesSum += amicable;
 		}
 
-		System.out.println(amicablesSum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(amicablesSum);
 	}
 
 }

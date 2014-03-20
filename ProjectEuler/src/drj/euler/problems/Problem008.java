@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -27,12 +28,15 @@ import drj.euler.Utility;
  * 		05886116467109405077541002256983155200055935729725
  * 		71636269561882670428252483600823257530420752963450
  */
-public class Problem008 {
+public class Problem008 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem008();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String sequence =
 				"73167176531330624919225119674426574742355349194934"+
 				"96983520312774506326239578318016984801869478851843"+
@@ -67,7 +71,6 @@ public class Problem008 {
 			}
 		}
 
-		System.out.println(maxProduct); 
-		System.out.println(t.toDecimalString());
+		return String.valueOf(maxProduct);
 	}
 }

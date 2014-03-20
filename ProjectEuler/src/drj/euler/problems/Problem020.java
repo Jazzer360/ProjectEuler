@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -11,19 +12,21 @@ import drj.euler.Utility;
  * 
  * Find the sum of the digits in the number 100!
  */
-public class Problem020 {
+public class Problem020 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem020();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int sum = 0;
 
 		for (char digit : Utility.factorial(100).toString().toCharArray()) {
 			sum += Utility.charToInt(digit);
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 }
