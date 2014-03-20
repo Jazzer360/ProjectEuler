@@ -1,6 +1,8 @@
 package drj.euler.problems;
 
-import java.util.Calendar;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
 
 import drj.euler.Utility;
 
@@ -27,19 +29,12 @@ public class Problem019 {
 		Utility.Timer t = new Utility.Timer();
 		t.start();
 
-		Calendar c = Calendar.getInstance();
-
 		int sundays = 0;
 
-		for (int year = 1901; year <= 2000 ; year++) {
-
-			for (int month = 0; month <= 11; month++) {
-				c.set(year, month, 1);
-
-				if (c.get(Calendar.DAY_OF_WEEK) == 1) {
-					sundays++;
-				}
-			}
+		LocalDate date = LocalDate.of(1901, Month.JANUARY, 1);
+		while (date.getYear() < 2001) {
+			if (date.getDayOfWeek() == DayOfWeek.SUNDAY) sundays++;
+			date = date.plusMonths(1);
 		}
 
 		System.out.println(sundays);
