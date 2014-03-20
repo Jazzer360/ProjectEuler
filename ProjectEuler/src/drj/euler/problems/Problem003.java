@@ -14,13 +14,12 @@ public class Problem003 {
 		t.start();
 
 		long num = 600851475143L;
-		long other;
 		long maxPrimeFactor = 2;
 
 		for (int factor = 3; factor < Math.sqrt(num); factor += 2) {
 			if (num % factor == 0) {
-				other = num / factor;
-				if (other > maxPrimeFactor && Utility.isPrime(other)) {
+				long other = num / factor;
+				if (Utility.isPrime(other)) {
 					maxPrimeFactor = other;
 					break;
 				}

@@ -19,13 +19,20 @@ public class Problem004 {
 		for (int i = 999; i >= 100; i--) {
 			for (int j = 999; j >=100; j--) {
 				int n = i * j;
-				if (n > maxFound && Utility.isPalindrome(n)) {
-					maxFound = n;
+				if (n > maxFound) {
+					if (isPalindrome(n)) maxFound = n;
+				} else {
+					break;
 				}
 			}
 		}
 
 		System.out.println(maxFound);
 		System.out.println(t.toDecimalString());
+	}
+	
+	private static boolean isPalindrome(int num) {
+		return String.valueOf(num).equals(
+				new StringBuilder(String.valueOf(num)).reverse().toString());
 	}
 }

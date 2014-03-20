@@ -17,16 +17,15 @@ public class Problem002 {
 		Utility.Timer t = new Utility.Timer();
 		t.start();
 
-		int first = 1;
-		int second = 2;
+		int prev = 1;
+		int curr = 2;
 		int sumOfEven = 0;
 
-		while (second < 4000000) {
-			if (second % 2 == 0) {
-				sumOfEven += second;
-			}
-			second = first + second;
-			first = second - first;
+		while (curr < 4000000) {
+			if (curr % 2 == 0) sumOfEven += curr;
+			int next = prev + curr;
+			prev = curr;
+			curr = next;
 		}
 
 		System.out.println(sumOfEven);

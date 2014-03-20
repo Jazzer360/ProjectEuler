@@ -512,15 +512,16 @@ public final class Utility {
 		}
 
 		List<Integer> factors = new ArrayList<Integer>();
+		double root = Math.sqrt(num);
 
-		for (int i = 1; i <= Math.sqrt(num); i++) {
+		for (int i = 1; i < root; i++) {
 			if (num % i == 0) {
 				factors.add(i);
-				if (!(i == Math.sqrt(num))) {
-					factors.add(num / i);
-				}
+				factors.add(num / i);
 			}
 		}
+		if (num % (int) root == 0) factors.add((int) root);
+
 		Collections.sort(factors);
 
 		return factors;

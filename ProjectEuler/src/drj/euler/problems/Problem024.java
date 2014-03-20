@@ -1,6 +1,7 @@
 package drj.euler.problems;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import drj.euler.Utility;
 
@@ -16,7 +17,7 @@ import drj.euler.Utility;
  * 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
  */
 public class Problem024 {
-	
+
 	/*
 	 * There is 10! permutations of the digits 0123456789.
 	 * 
@@ -48,7 +49,7 @@ public class Problem024 {
 		Utility.Timer t = new Utility.Timer();
 		t.start();
 
-		ArrayList<Integer> digits = new ArrayList<Integer>();
+		List<Integer> digits = new ArrayList<Integer>();
 		for (int i = 0; i <= 9; i++) {
 			digits.add(i);
 		}
