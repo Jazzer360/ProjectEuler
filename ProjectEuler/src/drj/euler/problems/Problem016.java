@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -10,6 +11,7 @@ import drj.euler.Utility;
  * 
  * What is the sum of the digits of the number 2^1000?
  */
+@Answer("1366")
 public class Problem016 extends Problem {
 
 	public static void main(String[] args) {

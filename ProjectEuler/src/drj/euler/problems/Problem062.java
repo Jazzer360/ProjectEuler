@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -15,6 +16,7 @@ import drj.euler.Problem;
  * Find the smallest cube for which exactly five permutations of its digits are
  * cube.
  */
+@Answer("127035954683")
 public class Problem062 extends Problem {
 
 	public static void main(String[] args) {

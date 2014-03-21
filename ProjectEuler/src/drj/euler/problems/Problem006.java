@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -15,6 +16,7 @@ import drj.euler.Problem;
  * Find the difference between the sum of the squares of the first one hundred
  * natural numbers and the square of the sum.
  */
+@Answer("25164150")
 public class Problem006 extends Problem {
 
 	public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -17,6 +18,7 @@ import drj.euler.Utility;
  * If the product of these four fractions is given in its lowest common terms,
  * find the value of the denominator. 
  */
+@Answer("100")
 public class Problem033 extends Problem {
 
 	public static void main(String[] args) {

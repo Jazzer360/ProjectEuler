@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -10,6 +11,7 @@ import drj.euler.Problem;
  * 
  * Note: as 1! = 1 and 2! = 2 are not sums they are not included. 
  */
+@Answer("40730")
 public class Problem034 extends Problem {
 
 	public static void main(String[] args) {

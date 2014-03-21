@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -19,6 +20,7 @@ import drj.euler.Utility;
  * difference are pentagonal and D = |Pk - Pj| is minimized; what is the value
  * of D?
  */
+@Answer("5482660")
 public class Problem044 extends Problem {
 
 	public static void main(String[] args) {

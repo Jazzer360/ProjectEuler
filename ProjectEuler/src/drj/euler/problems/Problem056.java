@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -13,6 +14,7 @@ import drj.euler.Utility;
  * Considering natural numbers of the form, a^b, where a, b < 100, what is the
  * maximum digital sum?
  */
+@Answer("972")
 public class Problem056 extends Problem {
 
 	public static void main(String[] args) {

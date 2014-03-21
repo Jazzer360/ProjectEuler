@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -34,6 +35,7 @@ import drj.euler.Utility;
  * the plain text must contain common English words, decrypt the message and
  * find the sum of the ASCII values in the original text.
  */
+@Answer("107359")
 public class Problem059 extends Problem {
 
 	public static void main(String[] args) {

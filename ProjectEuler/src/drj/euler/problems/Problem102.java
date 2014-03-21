@@ -1,5 +1,7 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -21,14 +23,18 @@ import drj.euler.Utility;
  * NOTE: The first two examples in the file represent the triangles in the
  * example given above.
  */
-public class Problem102 {
+@Answer("228")
+public class Problem102 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem102();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/triangles.txt";
-		
+
 		int containsOriginCount = 0;
 
 		for (String line : Utility.getFileContents(filePath)) {
@@ -48,8 +54,7 @@ public class Problem102 {
 				containsOriginCount++;
 		}
 
-		System.out.println(containsOriginCount);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(containsOriginCount);
 	}
 
 	private static boolean pointInPoly(int numVertices,

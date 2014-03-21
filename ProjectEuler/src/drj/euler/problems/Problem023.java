@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.HashSet;
 import java.util.Set;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -25,6 +26,7 @@ import drj.euler.Utility;
  * Find the sum of all the positive integers which cannot be written as the sum
  * of two abundant numbers.
  */
+@Answer("4179871")
 public class Problem023 extends Problem {
 
 	public static void main(String[] args) {

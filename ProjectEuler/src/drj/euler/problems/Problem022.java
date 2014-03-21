@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -20,6 +21,7 @@ import drj.euler.Utility;
  * 
  * What is the total of all the name scores in the file?
  */
+@Answer("871198282")
 public class Problem022 extends Problem {
 
 	public static void main(String[] args) {

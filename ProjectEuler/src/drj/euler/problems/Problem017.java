@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -14,6 +15,7 @@ import drj.euler.Problem;
  * letters. The use of "and" when writing out numbers is in compliance with
  * British usage.
  */
+@Answer("21124")
 public class Problem017 extends Problem {
 
 	public static void main(String[] args) {

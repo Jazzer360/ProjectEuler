@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -9,6 +10,7 @@ import drj.euler.Problem;
  * What is the smallest positive number that is evenly divisible by all of the
  * numbers from 1 to 20?
  */
+@Answer("232792560")
 public class Problem005 extends Problem {
 
 	public static void main(String[] args) {

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -12,6 +13,7 @@ import drj.euler.Problem;
  * 
  * How many n-digit positive integers exist which are also an nth power?
  */
+@Answer("49")
 public class Problem063 extends Problem {
 
 	public static void main(String[] args) {

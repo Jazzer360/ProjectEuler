@@ -14,14 +14,6 @@ public abstract class Problem {
 		solve();
 	}
 
-	public final String getAnswer() {
-		return answer;
-	}
-
-	public final String getSolveTime() {
-		return time;
-	}
-
 	/**
 	 * Subclasses must handle all logic related to solving the problem in this
 	 * method and return the answer to the problem in string format.
@@ -39,8 +31,25 @@ public abstract class Problem {
 
 	@Override
 	public String toString() {
+		boolean solved = false;
+		boolean correct = false;
+		Answer answer = getClass().getAnnotation(Answer.class);
+		if (answer != null) {
+			solved = true;
+			correct = answer.value().equals(this.answer);
+		}
+
+		String status = "";
+
+		if (!solved) {
+			status = " - Not solved.";
+		} else if (!correct) {
+			status = " - INCORRECT! (" + answer.value() + ")";
+		}
+
 		return this.getClass().getSimpleName()
-				+ "\nAnswer: " + answer
-				+ "\nTime: " + time;
+				+ " answer: " + this.answer
+				+ " - " + this.time
+				+ status;
 	}
 }

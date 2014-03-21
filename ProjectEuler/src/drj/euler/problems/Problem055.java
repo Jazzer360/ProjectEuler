@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -36,6 +37,7 @@ import drj.euler.Utility;
  * NOTE: Wording was modified slightly on 24 April 2007 to emphasize the
  * theoretical nature of Lychrel numbers.
  */
+@Answer("249")
 public class Problem055 extends Problem {
 
 	public static void main(String[] args) {

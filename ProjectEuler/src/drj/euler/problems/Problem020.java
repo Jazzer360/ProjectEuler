@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -12,6 +13,7 @@ import drj.euler.Utility;
  * 
  * Find the sum of the digits in the number 100!
  */
+@Answer("648")
 public class Problem020 extends Problem {
 
 	public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -14,6 +15,7 @@ import drj.euler.Utility;
  * What 12-digit number do you form by concatenating the three terms in this
  * sequence?
  */
+@Answer("296962999629")
 public class Problem049 extends Problem {
 
 	public static void main(String[] args) {

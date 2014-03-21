@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -109,6 +110,7 @@ import drj.euler.Problem;
  * 20849603980134001723930671666823555245252804609722
  * 53503534226472524250874054075591789781264330331690
  */
+@Answer("5537376230")
 public class Problem013 extends Problem {
 
 	public static void main(String[] args) {

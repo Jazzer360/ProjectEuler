@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -8,6 +9,7 @@ import drj.euler.Problem;
  * 
  * Find the sum of all the multiples of 3 or 5 below 1000.
  */
+@Answer("233168")
 public class Problem001 extends Problem {
 
 	public static void main(String[] args) {

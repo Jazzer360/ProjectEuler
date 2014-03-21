@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -24,6 +25,7 @@ import drj.euler.Problem;
  * Find the value of d < 1000 for which 1/d contains the longest recurring
  * cycle in its decimal fraction part.
  */
+@Answer("983")
 public class Problem026 extends Problem {
 
 	public static void main(String[] args) {

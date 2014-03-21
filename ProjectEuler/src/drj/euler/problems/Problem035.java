@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -12,6 +13,7 @@ import drj.euler.Utility;
  * 
  * How many circular primes are there below one million?
  */
+@Answer("55")
 public class Problem035 extends Problem {
 
 	public static void main(String[] args) {

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -61,6 +62,7 @@ import drj.euler.Utility;
  * 
  * How many hands does Player 1 win?
  */
+@Answer("376")
 public class Problem054 extends Problem {
 
 	public static void main(String[] args) {

@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import drj.euler.Answer;
 import drj.euler.AsyncWorker;
 import drj.euler.Problem;
-import drj.euler.Utility;
 
 /**
  * The number 145 is well known for the property that the sum of the factorial
@@ -36,6 +36,7 @@ import drj.euler.Utility;
  * How many chains, with a starting number below one million, contain exactly
  * sixty non-repeating terms?
  */
+@Answer("402")
 public class Problem074 extends Problem {
 
 	public static void main(String[] args) {
@@ -43,10 +44,15 @@ public class Problem074 extends Problem {
 		System.out.println(p);
 	}
 
-	private static Map<Long, Integer> loopSizes = new ConcurrentHashMap<>();
+	private static final int[] FACTORIALS =
+		{1, 1, 2, 6, 24, 120, 720, 5_040, 40_320, 362_880};
+
+	private Map<Long, Integer> loopSizes;
 
 	@Override
 	protected String onSolve() {
+		loopSizes = new ConcurrentHashMap<Long, Integer>();
+
 		loopSizes.put(169L, 3);
 		loopSizes.put(363601L, 3);
 		loopSizes.put(1454L, 3);
@@ -72,14 +78,12 @@ public class Problem074 extends Problem {
 				computer.submit(i);
 			}
 			computer.finish();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		} catch (InterruptedException e) {}
 
 		return String.valueOf(count.get());
 	}
 
-	private static int termsInLoop(long n) {
+	private int termsInLoop(long n) {
 		if (loopSizes.containsKey(n)) {
 			return loopSizes.get(n);
 		} else {
@@ -92,7 +96,7 @@ public class Problem074 extends Problem {
 	private static long nextTerm(long n) {
 		long term = 0;
 		while (n > 0) {
-			term += Utility.factorial((int) (n % 10)).intValue();
+			term += FACTORIALS[(int) (n % 10)];
 			n /= 10;
 		}
 		return term;

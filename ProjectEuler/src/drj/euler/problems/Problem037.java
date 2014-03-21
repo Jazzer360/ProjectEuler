@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -14,6 +15,7 @@ import drj.euler.Utility;
  * 
  * NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
  */
+@Answer("748317")
 public class Problem037 extends Problem {
 
 	public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -19,6 +20,7 @@ import drj.euler.Utility;
  * What is the smallest odd composite that cannot be written as the sum of a
  * prime and twice a square?
  */
+@Answer("5777")
 public class Problem046 extends Problem {
 
 	public static void main(String[] args) {

@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -20,6 +21,7 @@ import drj.euler.Utility;
  * Which prime, below one-million, can be written as the sum of the most
  * consecutive primes?
  */
+@Answer("997651")
 public class Problem050 extends Problem {
 
 	public static void main(String[] args) {

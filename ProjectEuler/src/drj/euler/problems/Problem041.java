@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -13,6 +14,7 @@ import drj.euler.Utility;
  * 
  * What is the largest n-digit pandigital prime that exists?
  */
+@Answer("7652413")
 public class Problem041 extends Problem {
 
 	public static void main(String[] args) {

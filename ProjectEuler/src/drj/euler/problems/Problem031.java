@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -14,6 +15,7 @@ import drj.euler.Problem;
  * 
  * How many different ways can £2 be made using any number of coins? 
  */
+@Answer("73682")
 public class Problem031 extends Problem {
 
 	public static void main(String[] args) {

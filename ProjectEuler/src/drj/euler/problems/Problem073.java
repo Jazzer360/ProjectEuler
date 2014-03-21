@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.HashSet;
 import java.util.Set;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -21,6 +22,7 @@ import drj.euler.Utility;
  * How many fractions lie between 1/3 and 1/2 in the sorted set of reduced
  * proper fractions for d <= 12,000?
  */
+@Answer("7295372")
 public class Problem073 extends Problem {
 
 	public static void main(String[] args) {

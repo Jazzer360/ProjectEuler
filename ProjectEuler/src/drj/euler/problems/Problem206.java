@@ -1,6 +1,7 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Answer;
+import drj.euler.Problem;
 
 /**
  * Find the unique positive integer whose square has the form
@@ -9,12 +10,16 @@ import drj.euler.Utility;
  * 
  * where each “_” is a single digit.
  */
-public class Problem206 {
+@Answer("1389019170")
+public class Problem206 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem206();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		long answer = 0;
 
 		for (long i = 1_010_101_010; i < 1_414_213_563 ; i++) {
@@ -24,8 +29,7 @@ public class Problem206 {
 			}
 		}
 
-		System.out.println(answer);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(answer);
 	}
 
 	private static boolean meetsCriteria(long i) {

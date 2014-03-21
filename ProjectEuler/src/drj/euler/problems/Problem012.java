@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -23,6 +24,7 @@ import drj.euler.Utility;
  * What is the value of the first triangle number to have over five hundred
  * divisors?
  */
+@Answer("76576500")
 public class Problem012 extends Problem {
 
 	public static void main(String[] args) {

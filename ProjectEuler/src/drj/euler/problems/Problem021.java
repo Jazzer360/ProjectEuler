@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.HashSet;
 import java.util.Set;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -18,6 +19,7 @@ import drj.euler.Utility;
  * 
  * Evaluate the sum of all the amicable numbers under 10000.
  */
+@Answer("31626")
 public class Problem021 extends Problem {
 
 	public static void main(String[] args) {

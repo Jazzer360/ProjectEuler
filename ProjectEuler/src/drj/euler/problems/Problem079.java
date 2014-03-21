@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -19,6 +20,7 @@ import drj.euler.Utility;
  * file so as to determine the shortest possible secret password of unknown
  * length.
  */
+@Answer("73162890")
 public class Problem079 extends Problem {
 
 	public static void main(String[] args) {

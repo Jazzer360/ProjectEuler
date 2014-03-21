@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -30,6 +31,7 @@ import drj.euler.Problem;
  * 
  * What is the first term in the Fibonacci sequence to contain 1000 digits?
  */
+@Answer("4782")
 public class Problem025 extends Problem {
 
 	public static void main(String[] args) {

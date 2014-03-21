@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -20,6 +21,7 @@ import drj.euler.Utility;
  * Find the first four consecutive integers to have four distinct prime
  * factors. What is the first of these numbers?
  */
+@Answer("134043")
 public class Problem047 extends Problem {
 
 	public static void main(String[] args) {

@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -20,6 +21,7 @@ import drj.euler.Utility;
  * How many, not necessarily distinct, values of  nCr, for 1 <= n <= 100, are
  * greater than one-million?
  */
+@Answer("4075")
 public class Problem053 extends Problem {
 
 	public static void main(String[] args) {

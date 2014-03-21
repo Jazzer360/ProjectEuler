@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -9,6 +10,7 @@ import drj.euler.Utility;
  * 
  * What is the 10 001st prime number?
  */
+@Answer("104743")
 public class Problem007 extends Problem {
 
 	public static void main(String[] args) {

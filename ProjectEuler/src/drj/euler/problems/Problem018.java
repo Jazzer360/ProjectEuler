@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -36,6 +37,7 @@ import drj.euler.Problem;
  * triangle containing one-hundred rows; it cannot be solved by brute force,
  * and requires a clever method! ;o)
  */
+@Answer("1074")
 public class Problem018 extends Problem {
 
 	public static void main(String[] args) {

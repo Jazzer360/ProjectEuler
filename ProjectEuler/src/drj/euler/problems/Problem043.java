@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -25,6 +26,7 @@ import drj.euler.Problem;
  * 
  * Find the sum of all 0 to 9 pandigital numbers with this property.
  */
+@Answer("16695334890")
 public class Problem043 extends Problem {
 
 	public static void main(String[] args) {

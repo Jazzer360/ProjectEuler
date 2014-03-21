@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -28,6 +29,7 @@ import drj.euler.Utility;
  * that produces the maximum number of primes for consecutive values of n,
  * starting with n = 0.
  */
+@Answer("-59231")
 public class Problem027 extends Problem {
 
 	public static void main(String[] args) {

@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -55,6 +56,7 @@ import drj.euler.Problem;
  *  Find the sum of digits in the numerator of the 100th convergent of the
  *  continued fraction for e.
  */
+@Answer("272")
 public class Problem065 extends Problem {
 
 	private static final int TERM_NUMBER = 100;

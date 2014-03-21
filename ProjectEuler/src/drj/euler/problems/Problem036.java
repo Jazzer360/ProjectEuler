@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -12,6 +13,7 @@ import drj.euler.Utility;
  * (Please note that the palindromic number, in either base, may not include
  * leading zeros.)
  */
+@Answer("872187")
 public class Problem036 extends Problem {
 
 	public static void main(String[] args) {

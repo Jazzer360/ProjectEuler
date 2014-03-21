@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -15,6 +16,7 @@ import drj.euler.Problem;
  * How many different ways can one hundred be written as a sum of at least two
  * positive integers?
  */
+@Answer("190569291")
 public class Problem076 extends Problem {
 
 	public static void main(String[] args) {

@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.HashMap;
 import java.util.Map;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -27,6 +28,7 @@ import drj.euler.Utility;
  *
  * Find the value of n <= 1,000,000 for which n/t(n) is a maximum.
  */
+@Answer("510510")
 public class Problem069 extends Problem {
 
 	public static void main(String[] args) {

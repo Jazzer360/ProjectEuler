@@ -1,6 +1,7 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Answer;
+import drj.euler.Problem;
 
 /**
  * The first known prime found to exceed one million digits was discovered in
@@ -13,12 +14,16 @@ import drj.euler.Utility;
  * 
  * Find the last ten digits of this prime number.
  */
-public class Problem097 {
+@Answer("8739992577")
+public class Problem097 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem097();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		long n = 28_433;
 		for (int i = 0; i < 7_830_457; i++) {
 			n *= 2;
@@ -26,7 +31,6 @@ public class Problem097 {
 		}
 		n++;
 
-		System.out.println(n);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(n);
 	}
 }

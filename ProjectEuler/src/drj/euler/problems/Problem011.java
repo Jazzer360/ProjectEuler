@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -31,6 +32,7 @@ import drj.euler.Problem;
  * What is the greatest product of four adjacent numbers in the same direction
  * (up, down, left, right, or diagonally) in the 2020 grid?
  */
+@Answer("70600674")
 public class Problem011 extends Problem {
 
 	public static void main(String[] args) {

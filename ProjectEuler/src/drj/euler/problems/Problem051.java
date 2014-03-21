@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -20,6 +21,7 @@ import drj.euler.Utility;
  * necessarily adjacent digits) with the same digit, is part of an eight prime
  * value family.
  */
+@Answer("121313")
 public class Problem051 extends Problem {
 
 	public static void main(String[] args) {

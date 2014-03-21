@@ -2,6 +2,8 @@ package drj.euler.problems;
 
 import java.util.List;
 
+import drj.euler.Answer;
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -34,12 +36,16 @@ import drj.euler.Utility;
  * Note: You can assume that all the Roman numerals in the file contain no more
  * than four consecutive identical units.
  */
-public class Problem089 {
+@Answer("743")
+public class Problem089 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem089();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/roman.txt";
 
 		List<String> numerals = Utility.getFileContents(filePath);
@@ -54,8 +60,7 @@ public class Problem089 {
 			endCount += reducedNumeral.length();
 		}
 
-		System.out.println(startCount - endCount);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(startCount - endCount);
 	}
 
 	private static int fromRoman(String numeral) {

@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -22,6 +23,7 @@ import drj.euler.Utility;
  * ascending order of size, find the numerator of the fraction immediately to
  * the left of 3/7.
  */
+@Answer("428570")
 public class Problem071 extends Problem {
 
 	public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -10,6 +11,7 @@ import drj.euler.Problem;
  * 
  * For which value of p <= 1000, is the number of solutions maximized?
  */
+@Answer("840")
 public class Problem039 extends Problem {
 
 	public static void main(String[] args) {

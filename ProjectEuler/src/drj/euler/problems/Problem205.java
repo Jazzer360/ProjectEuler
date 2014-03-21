@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import drj.euler.Utility;
+import drj.euler.Answer;
+import drj.euler.Problem;
 
 /**
  * Peter has nine four-sided (pyramidal) dice, each with faces numbered:
@@ -19,12 +20,16 @@ import drj.euler.Utility;
  * What is the probability that Pyramidal Pete beats Cubic Colin? Give your
  * answer rounded to seven decimal places in the form 0.abcdefg
  */
-public class Problem205 {
+@Answer("0.5731441")
+public class Problem205 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem205();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		Map<Integer, Integer> peteOutcomes = new HashMap<>();
 		Map<Integer, Integer> colinOutcomes = new HashMap<>();
 
@@ -45,8 +50,7 @@ public class Problem205 {
 
 		double peteWinPct = (double) peteWins / totalOutcomes;
 
-		System.out.println(String.format("%.7f", peteWinPct));
-		System.out.println(t.toDecimalString());
+		return String.format("%.7f", peteWinPct);
 	}
 
 	private static void fillOutcomeMap(int sides, int dice,

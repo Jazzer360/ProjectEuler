@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -28,6 +29,7 @@ import drj.euler.Utility;
  * 		05886116467109405077541002256983155200055935729725
  * 		71636269561882670428252483600823257530420752963450
  */
+@Answer("40824")
 public class Problem008 extends Problem {
 
 	public static void main(String[] args) {

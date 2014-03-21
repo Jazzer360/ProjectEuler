@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -16,6 +17,7 @@ import drj.euler.Utility;
  * 
  * 		d1 x d10 x d100 x d1000 x d10000 x d100000 x d1000000
  */
+@Answer("210")
 public class Problem040 extends Problem {
 
 	public static void main(String[] args) {

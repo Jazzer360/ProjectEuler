@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -23,6 +24,7 @@ import drj.euler.Utility;
  * As...'), a 31K text file containing a 80 by 80 matrix, from the left column
  * to the right column.
  */
+@Answer("260324")
 public class Problem082 extends Problem {
 
 	public static void main(String[] args) {

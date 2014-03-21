@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -12,6 +13,7 @@ import drj.euler.Problem;
  * There exists exactly one Pythagorean triplet for which a + b + c = 1000.
  * Find the product abc.
  */
+@Answer("31875000")
 public class Problem009 extends Problem {
 
 	public static void main(String[] args) {

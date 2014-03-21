@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -24,6 +25,7 @@ import drj.euler.Problem;
  * In the first one-thousand expansions, how many fractions contain a numerator
  * with more digits than denominator?
  */
+@Answer("153")
 public class Problem057 extends Problem {
 
 	public static void main(String[] args) {

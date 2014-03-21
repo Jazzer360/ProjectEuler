@@ -1,6 +1,7 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Answer;
+import drj.euler.Problem;
 
 /**
  * Working from left-to-right if no digit is exceeded by the digit to its left
@@ -22,12 +23,16 @@ import drj.euler.Utility;
  * Find the least number for which the proportion of bouncy numbers is exactly
  * 99%.
  */
-public class Problem112 {
+@Answer("1587000")
+public class Problem112 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem112();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int bouncyCount = 1;
 		int num = 101;
 
@@ -36,8 +41,7 @@ public class Problem112 {
 			if (isBouncy(num)) bouncyCount++;
 		}
 
-		System.out.println(num);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(num);
 	}
 
 	private static boolean isBouncy(long num) {

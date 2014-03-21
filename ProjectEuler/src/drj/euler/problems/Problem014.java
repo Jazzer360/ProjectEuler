@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -25,6 +26,7 @@ import drj.euler.Problem;
  * 
  * NOTE: Once the chain starts the terms are allowed to go above one million.
  */
+@Answer("837799")
 public class Problem014 extends Problem {
 
 	public static void main(String[] args) {
@@ -36,11 +38,12 @@ public class Problem014 extends Problem {
 	private static final BigInteger TWO = BigInteger.valueOf(2);
 	private static final BigInteger ONE = BigInteger.ONE;
 	private static final BigInteger ZERO = BigInteger.ZERO;
-	private static final Map<BigInteger, Integer> COLLATZ_LENGTH_CACHE =
-			new HashMap<BigInteger, Integer>();
+	
+	private Map<BigInteger, Integer> COLLATZ_LENGTH_CACHE;
 
 	@Override
 	protected String onSolve() {
+		COLLATZ_LENGTH_CACHE = new HashMap<>();
 		int maxStart = 2;
 		int maxLength = 2;
 
@@ -55,7 +58,7 @@ public class Problem014 extends Problem {
 		return String.valueOf(maxStart);
 	}
 
-	private static int getCollatzLength(BigInteger num) {
+	private int getCollatzLength(BigInteger num) {
 		if (num.compareTo(ONE) == 0) {
 			return 1;
 		}

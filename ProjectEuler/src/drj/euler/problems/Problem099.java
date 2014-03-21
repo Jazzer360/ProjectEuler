@@ -1,5 +1,7 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -16,12 +18,16 @@ import drj.euler.Utility;
  * NOTE: The first two lines in the file represent the numbers in the example
  * given above.
  */
-public class Problem099 {
+@Answer("709")
+public class Problem099 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem099();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/base_exp.txt";
 
 		int currLine = 0;
@@ -41,7 +47,6 @@ public class Problem099 {
 			}
 		}
 
-		System.out.println(maxLine);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(maxLine);
 	}
 }

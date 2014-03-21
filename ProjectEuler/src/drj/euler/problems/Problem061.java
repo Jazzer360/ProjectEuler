@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -38,6 +39,7 @@ import drj.euler.Utility;
  * each polygonal type: triangle, square, pentagonal, hexagonal, heptagonal,
  * and octagonal, is represented by a different number in the set.
  */
+@Answer("28684")
 public class Problem061 extends Problem {
 
 	public static void main(String[] args) {

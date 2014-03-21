@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -8,6 +9,7 @@ import drj.euler.Utility;
  * 
  * What is the largest prime factor of the number 600851475143 ?
  */
+@Answer("6857")
 public class Problem003 extends Problem {
 
 	public static void main(String[] args) {

@@ -1,6 +1,7 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Answer;
+import drj.euler.Problem;
 
 /**
  * A number chain is created by continuously adding the square of the digits in
@@ -16,12 +17,16 @@ import drj.euler.Utility;
  * 
  * How many starting numbers below ten million will arrive at 89?
  */
-public class Problem092 {
+@Answer("8581146")
+public class Problem092 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem092();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int count = 0;
 
 		for (long i = 1; i < 10_000_000; i++) {
@@ -34,8 +39,7 @@ public class Problem092 {
 			}
 		}
 
-		System.out.println(count);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(count);
 	}
 
 	private static long getNext(long num) {

@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -11,6 +12,7 @@ import drj.euler.Problem;
  * By considering the terms in the Fibonacci sequence whose values do not
  * exceed four million, find the sum of the even-valued terms.
  */
+@Answer("4613732")
 public class Problem002 extends Problem {
 
 	public static void main(String[] args) {

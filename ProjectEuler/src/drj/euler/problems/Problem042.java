@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -21,6 +22,7 @@ import drj.euler.Utility;
  * containing nearly two-thousand common English words, how many are triangle
  * words?
  */
+@Answer("162")
 public class Problem042 extends Problem {
 
 	public static void main(String[] args) {

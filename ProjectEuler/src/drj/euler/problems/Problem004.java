@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -9,6 +10,7 @@ import drj.euler.Utility;
  *
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
+@Answer("906609")
 public class Problem004 extends Problem {
 
 	public static void main(String[] args) {

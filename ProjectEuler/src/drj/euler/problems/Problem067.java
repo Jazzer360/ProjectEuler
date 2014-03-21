@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -27,6 +28,7 @@ import drj.euler.Utility;
  * would take over twenty billion years to check them all. There is an
  * efficient algorithm to solve it. ;o)
  */
+@Answer("7273")
 public class Problem067 extends Problem {
 
 	public static void main(String[] args) {

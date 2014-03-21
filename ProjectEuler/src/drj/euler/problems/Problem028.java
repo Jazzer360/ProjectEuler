@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -17,11 +18,19 @@ import drj.euler.Problem;
  * What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral
  * formed in the same way?
  */
+@Answer("669171001")
 public class Problem028 extends Problem {
 
 	public static void main(String[] args) {
 		Problem p = new Problem028();
 		System.out.println(p);
+	}
+
+	@Override
+	protected String onSolve() {
+		int spiralSize = 1001;
+
+		return String.valueOf(getSumOfDiagonals(spiralSize));
 	}
 
 	private static long getSumOfDiagonals(long spiralSize) {
@@ -39,12 +48,5 @@ public class Problem028 extends Problem {
 		sum += getSumOfDiagonals(spiralSize - 2);
 
 		return sum;
-	}
-
-	@Override
-	protected String onSolve() {
-		int spiralSize = 1001;
-
-		return String.valueOf(getSumOfDiagonals(spiralSize));
 	}
 }

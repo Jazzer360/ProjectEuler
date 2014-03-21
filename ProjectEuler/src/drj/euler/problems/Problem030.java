@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 
 /**
@@ -17,6 +18,7 @@ import drj.euler.Problem;
  * Find the sum of all the numbers that can be written as the sum of fifth
  * powers of their digits.
  */
+@Answer("443839")
 public class Problem030 extends Problem {
 
 	public static void main(String[] args) {

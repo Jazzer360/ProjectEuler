@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.util.List;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -19,6 +20,7 @@ import drj.euler.Utility;
  * HINT: Some products can be obtained in more than one way so be sure to only
  * include it once in your sum.
  */
+@Answer("45228")
 public class Problem032 extends Problem {
 
 	public static void main(String[] args) {

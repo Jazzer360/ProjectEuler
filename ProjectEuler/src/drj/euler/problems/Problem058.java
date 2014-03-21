@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Answer;
 import drj.euler.Problem;
 import drj.euler.Utility;
 
@@ -24,6 +25,7 @@ import drj.euler.Utility;
  * is the side length of the square spiral for which the ratio of primes along
  * both diagonals first falls below 10%?
  */
+@Answer("26241")
 public class Problem058 extends Problem {
 
 	public static void main(String[] args) {

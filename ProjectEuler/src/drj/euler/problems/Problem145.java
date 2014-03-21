@@ -2,8 +2,9 @@ package drj.euler.problems;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import drj.euler.Answer;
 import drj.euler.AsyncWorker;
-import drj.euler.Utility;
+import drj.euler.Problem;
 import drj.euler.Utility.Range;
 
 /**
@@ -16,12 +17,16 @@ import drj.euler.Utility.Range;
  * 
  * How many reversible numbers are there below one-billion (10^9)?
  */
-public class Problem145 {
+@Answer("608720")
+public class Problem145 extends Problem {
 
 	public static void main(String[] args) throws InterruptedException {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem145();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		final AtomicInteger count = new AtomicInteger();
 		AsyncWorker<Range, Void> computer = new AsyncWorker<>(
 				in -> {
@@ -31,13 +36,14 @@ public class Problem145 {
 					return null;
 				});
 		int cores = Runtime.getRuntime().availableProcessors();
-		for (Range range : new Range(0, 999_999_999).split(cores)) {
-			computer.submit(range);
-		}
-		computer.finish();
+		try {
+			for (Range range : new Range(0, 999_999_999).split(cores)) {
+				computer.submit(range);
+			}
+			computer.finish();
+		} catch (InterruptedException e) {}
 
-		System.out.println(count);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(count);
 	}
 
 	private static int reverse(int num) {

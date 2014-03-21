@@ -2,7 +2,8 @@ package drj.euler.problems;
 
 import java.util.TreeMap;
 
-import drj.euler.Utility;
+import drj.euler.Answer;
+import drj.euler.Problem;
 
 /**
  * By counting carefully it can be seen that a rectangular grid measuring
@@ -16,14 +17,18 @@ import drj.euler.Utility;
  * Although there exists no rectangular grid that contains exactly two million
  * rectangles, find the area of the grid with the nearest solution.
  */
-public class Problem085 {
+@Answer("2772")
+public class Problem085 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem085();
+		System.out.println(p);
+	}
 
 	private static final int THRESHOLD = 2_000_000;
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		TreeMap<Integer, Integer> map = new TreeMap<>();
 
 		outerLoop:
@@ -45,8 +50,7 @@ public class Problem085 {
 		int answerKey = THRESHOLD - underKey < overKey - THRESHOLD
 				? underKey : overKey;
 
-		System.out.println(map.get(answerKey));
-		System.out.println(t.toDecimalString());
+		return String.valueOf(map.get(answerKey));
 	}
 
 	private static int numRectangles(int w, int h) {
