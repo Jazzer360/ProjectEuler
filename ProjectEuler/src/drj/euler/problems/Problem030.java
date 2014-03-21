@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * Surprisingly there are only three numbers that can be written as the sum of
@@ -17,12 +17,15 @@ import drj.euler.Utility;
  * Find the sum of all the numbers that can be written as the sum of fifth
  * powers of their digits.
  */
-public class Problem030 {
+public class Problem030 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem030();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int total = 0;
 		for (int i = 10; i < 200_000; i++) {
 			int num = i;
@@ -39,7 +42,6 @@ public class Problem030 {
 			}
 		}
 
-		System.out.println(total);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(total);
 	}
 }

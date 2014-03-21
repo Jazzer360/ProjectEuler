@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * Starting with the number 1 and moving to the right in a clockwise direction
@@ -17,16 +17,11 @@ import drj.euler.Utility;
  * What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral
  * formed in the same way?
  */
-public class Problem028 {
+public class Problem028 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
-		int spiralSize = 1001;
-
-		System.out.println(getSumOfDiagonals(spiralSize));
-		System.out.println(t.toDecimalString());
+		Problem p = new Problem028();
+		System.out.println(p);
 	}
 
 	private static long getSumOfDiagonals(long spiralSize) {
@@ -44,5 +39,12 @@ public class Problem028 {
 		sum += getSumOfDiagonals(spiralSize - 2);
 
 		return sum;
+	}
+
+	@Override
+	protected String onSolve() {
+		int spiralSize = 1001;
+
+		return String.valueOf(getSumOfDiagonals(spiralSize));
 	}
 }

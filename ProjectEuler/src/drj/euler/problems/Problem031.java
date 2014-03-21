@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * In England the currency is made up of pound, £, and pence, p, and there are
@@ -14,17 +14,19 @@ import drj.euler.Utility;
  * 
  * How many different ways can £2 be made using any number of coins? 
  */
-public class Problem031 {
+public class Problem031 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem031();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int[] coins = {1, 2, 5, 10, 20, 50, 100, 200};
 		int target = 200;
 
-		System.out.println(combinations(coins, target));
-		System.out.println(t.toDecimalString());
+		return String.valueOf(combinations(coins, target));
 	}
 
 	private static int combinations(int[] coins, int target) {
