@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -20,12 +21,15 @@ import drj.euler.Utility;
  * containing nearly two-thousand common English words, how many are triangle
  * words?
  */
-public class Problem042 {
+public class Problem042 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem042();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/words.txt";
 		List<String> words = new ArrayList<String>();
 
@@ -42,8 +46,7 @@ public class Problem042 {
 			}
 		}
 
-		System.out.println(triangleWordCount);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(triangleWordCount);
 	}
 
 	private static boolean isTriangleWord(String word) {

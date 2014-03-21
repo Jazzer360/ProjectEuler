@@ -1,7 +1,9 @@
 package drj.euler.problems;
 
+import java.util.NavigableSet;
 import java.util.TreeSet;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -17,13 +19,16 @@ import drj.euler.Utility;
  * difference are pentagonal and D = |Pk - Pj| is minimized; what is the value
  * of D?
  */
-public class Problem044 {
+public class Problem044 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem044();
+		System.out.println(p);
+	}
 
-		TreeSet<Long> pentagonals = new TreeSet<Long>();
+	@Override
+	protected String onSolve() {
+		NavigableSet<Long> pentagonals = new TreeSet<Long>();
 		pentagonals.add(1L);
 
 		int nth = 2;
@@ -44,7 +49,6 @@ public class Problem044 {
 			}
 		}
 
-		System.out.println(minDifference);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(minDifference);
 	}
 }

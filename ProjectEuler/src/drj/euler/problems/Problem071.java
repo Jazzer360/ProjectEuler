@@ -1,7 +1,9 @@
 package drj.euler.problems;
 
+import java.util.NavigableSet;
 import java.util.TreeSet;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -20,14 +22,17 @@ import drj.euler.Utility;
  * ascending order of size, find the numerator of the fraction immediately to
  * the left of 3/7.
  */
-public class Problem071 {
+public class Problem071 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem071();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		Fraction rightbound = new Fraction(3, 7);
-		TreeSet<Fraction> set = new TreeSet<>();
+		NavigableSet<Fraction> set = new TreeSet<>();
 
 		for (int i = 2; i <= 1_000_000; i++) {
 			int multiple = (int) (rightbound.toDouble() / (1.0 / i));
@@ -36,8 +41,7 @@ public class Problem071 {
 			}
 		}
 
-		System.out.println(set.lower(rightbound).getNumerator());
-		System.out.println(t.toDecimalString());
+		return String.valueOf(set.lower(rightbound).getNumerator());
 	}
 
 	public static class Fraction implements Comparable<Fraction> {
@@ -87,7 +91,7 @@ public class Problem071 {
 		public int compareTo(Fraction o) {
 			return Double.compare(toDouble(), o.toDouble());
 		}
-		
+
 		@Override
 		public String toString() {
 			return numerator + "/" + denominator;

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * The cube, 41063625 (345^3), can be permuted to produce two other cubes:
@@ -15,14 +15,17 @@ import drj.euler.Utility;
  * Find the smallest cube for which exactly five permutations of its digits are
  * cube.
  */
-public class Problem062 {
+public class Problem062 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem062();
+		System.out.println(p);
+	}
 
 	private static final int NUM_PERMUTATIONS = 5;
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		Map<ArrayList<Character>, ArrayList<Integer>> map = new HashMap<>();
 		boolean answerFound = false;
 		long answer = 0;
@@ -51,7 +54,6 @@ public class Problem062 {
 			}
 		}
 
-		System.out.println(answer);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(answer);
 	}
 }

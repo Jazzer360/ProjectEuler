@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -37,30 +38,31 @@ import drj.euler.Utility;
  * each polygonal type: triangle, square, pentagonal, hexagonal, heptagonal,
  * and octagonal, is represented by a different number in the set.
  */
-public class Problem061 {
-
-
-	private static Map<Integer, HashSet<Integer>> map = new HashMap<>();
-
-	private static List<ArrayList<Integer>> chains = new ArrayList<>();
+public class Problem061 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem061();
+		System.out.println(p);
+	}
 
+	private static Map<Integer, HashSet<Integer>> map = new HashMap<>();
+	private static List<ArrayList<Integer>> chains = new ArrayList<>();
+
+	@Override
+	protected String onSolve() {
 		Set<Integer> chainStarts = new HashSet<>();
-
+		
 		for (int i = 1_000; i < 10_000; i++) {
 			if (isFigurate(i))
 				addFigurate(i);
 			if (Utility.isOctagonal(i))
 				chainStarts.add(i);
 		}
-
+	
 		for (int num : chainStarts) {
 			createChains(num);
 		}
-
+	
 		Iterator<ArrayList<Integer>> i = chains.iterator();
 		while (i.hasNext()) {
 			ArrayList<Integer> chain = i.next();
@@ -68,14 +70,13 @@ public class Problem061 {
 				i.remove();
 			}
 		}
-
+	
 		int sum = 0;
 		for (int n : chains.get(0)) {
 			sum += n;
 		}
-
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		
+		return String.valueOf(sum);
 	}
 
 	private static boolean isFigurate(int num) {

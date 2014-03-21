@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -19,15 +20,18 @@ import drj.euler.Utility;
  * As...'), a 31K text file containing a 80 by 80 matrix, from the top left to
  * the bottom right by only moving right and down.
  */
-public class Problem081 {
+public class Problem081 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem081();
+		System.out.println(p);
+	}
 
 	private static long[][] nums;
 	private static long[][] sums;
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/matrix2.txt";
 		List<String> lines = Utility.getFileContents(filePath);
 
@@ -44,8 +48,7 @@ public class Problem081 {
 			}
 		}
 
-		System.out.println(minSum(nums[0].length - 1, nums.length - 1));
-		System.out.println(t.toDecimalString());
+		return String.valueOf(minSum(nums[0].length - 1, nums.length - 1));
 	}
 
 	private static long minSum(int x, int y) {

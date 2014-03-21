@@ -2,7 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * It is possible to show that the square root of two can be expressed as an
@@ -24,12 +24,15 @@ import drj.euler.Utility;
  * In the first one-thousand expansions, how many fractions contain a numerator
  * with more digits than denominator?
  */
-public class Problem057 {
+public class Problem057 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem057();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		BigInteger TWO = BigInteger.valueOf(2);
 		BigInteger numerator = BigInteger.ONE;
 		BigInteger denominator = TWO;
@@ -49,7 +52,6 @@ public class Problem057 {
 			numerator = newNumerator;
 		}
 
-		System.out.println(count);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(count);
 	}
 }

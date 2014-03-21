@@ -2,7 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * The square root of 2 can be written as an infinite continued fraction.
@@ -55,14 +55,17 @@ import drj.euler.Utility;
  *  Find the sum of digits in the numerator of the 100th convergent of the
  *  continued fraction for e.
  */
-public class Problem065 {
+public class Problem065 extends Problem {
 
 	private static final int TERM_NUMBER = 100;
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem065();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int[] eConvergents = new int[1000];
 		eConvergents[0] = 2;
 
@@ -93,7 +96,6 @@ public class Problem065 {
 			numerator = numerator.divide(BigInteger.TEN);
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 }

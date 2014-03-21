@@ -37,7 +37,7 @@ public class Problem009 extends Problem {
 			}
 		}
 
-		return null;
+		return "not found";
 	}
 
 	private static boolean isPythagoreanTriplet(int a, int b, int c) {

@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -18,12 +19,15 @@ import drj.euler.Utility;
  * HINT: Some products can be obtained in more than one way so be sure to only
  * include it once in your sum.
  */
-public class Problem032 {
+public class Problem032 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem032();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int sum = 0;
 
 		for (int i = 1; i < 100_000; i++) {
@@ -32,8 +36,7 @@ public class Problem032 {
 			}
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 
 	private static boolean isPandigitalProduct(int num) {

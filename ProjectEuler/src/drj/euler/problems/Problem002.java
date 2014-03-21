@@ -15,7 +15,7 @@ public class Problem002 extends Problem {
 
 	public static void main(String[] args) {
 		Problem p = new Problem002();
-		System.out.println(p.toString());
+		System.out.println(p);
 	}
 
 	@Override

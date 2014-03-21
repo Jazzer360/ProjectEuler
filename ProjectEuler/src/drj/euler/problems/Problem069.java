@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.HashMap;
 import java.util.Map;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -26,15 +27,18 @@ import drj.euler.Utility;
  *
  * Find the value of n <= 1,000,000 for which n/t(n) is a maximum.
  */
-public class Problem069 {
+public class Problem069 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem069();
+		System.out.println(p);
+	}
 
 	private static Map<Integer, Integer> totients =
 			new HashMap<Integer, Integer>();
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		double tMax = 2.0;
 		int nMax = 2;
 
@@ -47,8 +51,7 @@ public class Problem069 {
 			}
 		}
 
-		System.out.println(nMax);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(nMax);
 	}
 
 	private static int totient(int num) {

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -60,12 +61,15 @@ import drj.euler.Utility;
  * 
  * How many hands does Player 1 win?
  */
-public class Problem054 {
+public class Problem054 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem054();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/poker.txt";
 
 		List<Hand> p1Hands = new ArrayList<Hand>();
@@ -84,8 +88,7 @@ public class Problem054 {
 			}
 		}
 
-		System.out.println(p1wins);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(p1wins);
 	}
 
 	public static class Hand {

@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -35,12 +36,20 @@ import drj.euler.Utility;
  * NOTE: Wording was modified slightly on 24 April 2007 to emphasize the
  * theoretical nature of Lychrel numbers.
  */
-public class Problem055 {
+public class Problem055 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem055();
+		System.out.println(p);
+	}
 
+	private static BigInteger getReverse(BigInteger num) {
+		return new BigInteger(
+				new StringBuilder(num.toString()).reverse().toString());
+	}
+
+	@Override
+	protected String onSolve() {
 		int count = 0;
 
 		for (int i = 0; i < 10_000; i++) {
@@ -57,12 +66,6 @@ public class Problem055 {
 			}
 		}
 
-		System.out.println(count);
-		System.out.println(t.toDecimalString());
-	}
-
-	private static BigInteger getReverse(BigInteger num) {
-		return new BigInteger(
-				new StringBuilder(num.toString()).reverse().toString());
+		return String.valueOf(count);
 	}
 }

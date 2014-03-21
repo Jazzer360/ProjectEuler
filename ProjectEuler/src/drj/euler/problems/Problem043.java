@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * The number, 1406357289, is a 0 to 9 pandigital number because it is made up
@@ -25,12 +25,15 @@ import drj.euler.Utility;
  * 
  * Find the sum of all 0 to 9 pandigital numbers with this property.
  */
-public class Problem043 {
+public class Problem043 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem043();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		List<ArrayList<String>> multiples = new ArrayList<ArrayList<String>>();
 		int[] primes = {2, 3, 5, 7, 11, 13, 17};
 
@@ -75,8 +78,7 @@ public class Problem043 {
 			sum += Long.parseLong(answer);
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 
 	private static String appendDigit(String canidate) {

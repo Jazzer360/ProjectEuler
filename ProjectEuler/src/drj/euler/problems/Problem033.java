@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -16,12 +17,15 @@ import drj.euler.Utility;
  * If the product of these four fractions is given in its lowest common terms,
  * find the value of the denominator. 
  */
-public class Problem033 {
+public class Problem033 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem033();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int nProduct = 1;
 		int dProduct = 1;
 
@@ -34,8 +38,8 @@ public class Problem033 {
 				}
 			}
 		}
-		System.out.println(dProduct / Utility.getGCF(nProduct, dProduct));
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(dProduct / Utility.getGCF(nProduct, dProduct));
 	}
 
 	private static boolean gypsyMathWorks(int numerator, int denominator) {

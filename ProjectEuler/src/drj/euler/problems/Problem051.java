@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -19,14 +20,17 @@ import drj.euler.Utility;
  * necessarily adjacent digits) with the same digit, is part of an eight prime
  * value family.
  */
-public class Problem051 {
+public class Problem051 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem051();
+		System.out.println(p);
+	}
 
 	private static Utility.PrimeSieve sieve = new Utility.PrimeSieve();
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		List<Integer> results = new ArrayList<Integer>();
 		boolean answerFound = false;
 
@@ -43,14 +47,14 @@ public class Problem051 {
 				}
 			}
 		}
+
 		for (int n : results) {
 			if (sieve.isPrime(n)) {
-				System.out.println(n);
-				break;
+				return String.valueOf(n);
 			}
 		}
 
-		System.out.println(t.toDecimalString());
+		return "not found";
 	}
 
 	private static int getPrimeCount(String num, int mask) {

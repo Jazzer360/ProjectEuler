@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -11,12 +12,15 @@ import drj.euler.Utility;
  * 
  * How many circular primes are there below one million?
  */
-public class Problem035 {
+public class Problem035 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem035();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int circularPrimeCount = 0;
 
 		for (int i = 2; i < 1_000_000; i++) {
@@ -24,8 +28,8 @@ public class Problem035 {
 				circularPrimeCount++;
 			}
 		}
-		System.out.println(circularPrimeCount);
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(circularPrimeCount);
 	}
 
 	private static boolean isCircularPrime(int num) {

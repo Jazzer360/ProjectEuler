@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * If p is the perimeter of a right angle triangle with integral length sides,
@@ -10,12 +10,15 @@ import drj.euler.Utility;
  * 
  * For which value of p <= 1000, is the number of solutions maximized?
  */
-public class Problem039 {
+public class Problem039 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem039();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int pMax = 1000;
 		int maxNum = 0, maxPVal = 0;
 
@@ -26,8 +29,7 @@ public class Problem039 {
 			}
 		}
 
-		System.out.println(maxPVal);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(maxPVal);
 	}
 
 	private static int numberIntegralRightTriangles(int p) {

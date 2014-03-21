@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -13,12 +14,15 @@ import drj.euler.Utility;
  * 
  * NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
  */
-public class Problem037 {
+public class Problem037 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem037();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int sum = 0;
 
 		for (int count = 0, num = 23;
@@ -30,8 +34,7 @@ public class Problem037 {
 			}
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 
 	private static boolean isTruncatablePrime(int num) {

@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Set;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * The 5-digit number, 16807=7^5, is also a fifth power. Similarly, the 9-digit
@@ -12,12 +12,15 @@ import drj.euler.Utility;
  * 
  * How many n-digit positive integers exist which are also an nth power?
  */
-public class Problem063 {
+public class Problem063 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem063();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		Set<BigInteger> nums = new HashSet<BigInteger>();
 
 		for (int i = 1; i <= 9; i++) {
@@ -31,7 +34,6 @@ public class Problem063 {
 			}
 		}
 
-		System.out.println(nums.size());
-		System.out.println(t.toDecimalString());
+		return String.valueOf(nums.size());
 	}
 }

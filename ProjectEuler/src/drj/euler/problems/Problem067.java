@@ -1,7 +1,9 @@
 package drj.euler.problems;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -25,14 +27,17 @@ import drj.euler.Utility;
  * would take over twenty billion years to check them all. There is an
  * efficient algorithm to solve it. ;o)
  */
-public class Problem067 {
+public class Problem067 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem067();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/triangle.txt";
-		ArrayList<String[]> pyramid = new ArrayList<String[]>();
+		List<String[]> pyramid = new ArrayList<String[]>();
 
 		for (String line : Utility.getFileContents(filePath)) {
 			pyramid.add(line.split(" "));
@@ -60,7 +65,6 @@ public class Problem067 {
 			}
 		}
 
-		System.out.println(triangle[0][0]);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(triangle[0][0]);
 	}
 }

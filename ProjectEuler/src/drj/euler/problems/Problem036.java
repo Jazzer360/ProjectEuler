@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -11,12 +12,15 @@ import drj.euler.Utility;
  * (Please note that the palindromic number, in either base, may not include
  * leading zeros.)
  */
-public class Problem036 {
+public class Problem036 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem036();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int sum = 0;
 		for (int i = 0; i < 1_000_000; i++) {
 			if (Utility.isPalindrome(i) &&
@@ -24,7 +28,7 @@ public class Problem036 {
 				sum += i;
 			}
 		}
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(sum);
 	}
 }

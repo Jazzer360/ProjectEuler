@@ -1,7 +1,9 @@
 package drj.euler.problems;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -11,13 +13,16 @@ import drj.euler.Utility;
  * 
  * What is the largest n-digit pandigital prime that exists?
  */
-public class Problem041 {
+public class Problem041 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem041();
+		System.out.println(p);
+	}
 
-		ArrayList<Integer> digits = new ArrayList<Integer>();
+	@Override
+	protected String onSolve() {
+		List<Integer> digits = new ArrayList<Integer>();
 
 		for (int i = 1; i <= 9; i++) {
 			digits.add(i);
@@ -41,7 +46,6 @@ public class Problem041 {
 			digits.remove(i - 1);
 		}
 
-		System.out.println(answer);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(answer);
 	}
 }

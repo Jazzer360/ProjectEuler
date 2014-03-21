@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import drj.euler.AsyncWorker;
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -35,14 +36,17 @@ import drj.euler.Utility;
  * How many chains, with a starting number below one million, contain exactly
  * sixty non-repeating terms?
  */
-public class Problem074 {
+public class Problem074 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem074();
+		System.out.println(p);
+	}
 
 	private static Map<Long, Integer> loopSizes = new ConcurrentHashMap<>();
 
-	public static void main(String[] args) throws InterruptedException {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		loopSizes.put(169L, 3);
 		loopSizes.put(363601L, 3);
 		loopSizes.put(1454L, 3);
@@ -63,13 +67,16 @@ public class Problem074 {
 					return null;
 				});
 
-		for (int i = 1; i < 1_000_000; i++) {
-			computer.submit(i);
+		try {
+			for (int i = 1; i < 1_000_000; i++) {
+				computer.submit(i);
+			}
+			computer.finish();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		computer.finish();
 
-		System.out.println(count.get());
-		System.out.println(t.toDecimalString());
+		return String.valueOf(count.get());
 	}
 
 	private static int termsInLoop(long n) {

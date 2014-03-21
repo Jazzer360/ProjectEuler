@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.HashSet;
 import java.util.Set;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -20,15 +21,18 @@ import drj.euler.Utility;
  * How many fractions lie between 1/3 and 1/2 in the sorted set of reduced
  * proper fractions for d <= 12,000?
  */
-public class Problem073 {
+public class Problem073 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem073();
+		System.out.println(p);
+	}
 
 	private static final Fraction ONE_THIRD = new Fraction(1, 3);
 	private static final Fraction ONE_HALF = new Fraction(1, 2);
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		Set<Fraction> set = new HashSet<>();
 
 		for (int i = 2; i <= 12_000; i++) {
@@ -45,8 +49,7 @@ public class Problem073 {
 			}
 		}
 
-		System.out.println(set.size());
-		System.out.println(t.toDecimalString());
+		return String.valueOf(set.size());
 	}
 
 	public static class Fraction implements Comparable<Fraction> {

@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -33,12 +34,15 @@ import drj.euler.Utility;
  * the plain text must contain common English words, decrypt the message and
  * find the sum of the ASCII values in the original text.
  */
-public class Problem059 {
+public class Problem059 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem059();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/cipher1.txt";
 		List<Integer> encrypted = new ArrayList<Integer>();
 
@@ -88,8 +92,7 @@ public class Problem059 {
 			sum += num;
 		}
 
-		System.out.println(sum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(sum);
 	}
 
 	private static boolean nextKey(char[] key) {

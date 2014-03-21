@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * 145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
@@ -10,15 +10,18 @@ import drj.euler.Utility;
  * 
  * Note: as 1! = 1 and 2! = 2 are not sums they are not included. 
  */
-public class Problem034 {
+public class Problem034 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem034();
+		System.out.println(p);
+	}
 
 	private static final int[] FACTORIALS =
 		{1, 1, 2, 6, 24, 120, 720, 5_040, 40_320, 362_880};
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		int total = 0;
 
 		for (int i = 10; i < 2_540_160; i++) {
@@ -26,8 +29,8 @@ public class Problem034 {
 				total += i;
 			}
 		}
-		System.out.println(total);
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(total);
 	}
 
 	private static boolean isFactorian(int n) {

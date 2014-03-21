@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -13,12 +14,15 @@ import drj.euler.Utility;
  * What 12-digit number do you form by concatenating the three terms in this
  * sequence?
  */
-public class Problem049 {
+public class Problem049 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem049();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		StringBuilder answer = new StringBuilder();
 
 		for (int i = 1001; i < 10000 - 6660; i += 2) {
@@ -35,7 +39,6 @@ public class Problem049 {
 			}
 		}
 
-		System.out.println(answer.toString());
-		System.out.println(t.toDecimalString());
+		return answer.toString();
 	}
 }

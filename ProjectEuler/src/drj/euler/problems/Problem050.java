@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -19,12 +20,15 @@ import drj.euler.Utility;
  * Which prime, below one-million, can be written as the sum of the most
  * consecutive primes?
  */
-public class Problem050 {
+public class Problem050 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem050();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		List<Integer> primes = new ArrayList<Integer>();
 
 		primes.add(2);
@@ -50,7 +54,6 @@ public class Problem050 {
 			}
 		}
 
-		System.out.println(maxSum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(maxSum);
 	}
 }

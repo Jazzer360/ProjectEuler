@@ -1,7 +1,9 @@
 package drj.euler.problems;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -21,13 +23,16 @@ import drj.euler.Utility;
  * What is the largest 1 to 9 pandigital 9-digit number that can be formed as
  * the concatenated product of an integer with (1,2, ... , n) where n > 1?
  */
-public class Problem038 {
+public class Problem038 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem038();
+		System.out.println(p);
+	}
 
-		ArrayList<Integer> products = new ArrayList<Integer>();
+	@Override
+	protected String onSolve() {
+		List<Integer> products = new ArrayList<Integer>();
 
 		int maxPandigital = 0;
 
@@ -53,7 +58,7 @@ public class Problem038 {
 				}
 			}
 		}
-		System.out.println(maxPandigital);
-		System.out.println(t.toDecimalString());
+
+		return String.valueOf(maxPandigital);
 	}
 }

@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.util.List;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -22,15 +23,18 @@ import drj.euler.Utility;
  * As...'), a 31K text file containing a 80 by 80 matrix, from the left column
  * to the right column.
  */
-public class Problem082 {
+public class Problem082 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem082();
+		System.out.println(p);
+	}
 
 	private static long[][] nums;
 	private static long[][] sums;
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/matrix3.txt";
 		List<String> lines = Utility.getFileContents(filePath);
 
@@ -56,8 +60,7 @@ public class Problem082 {
 			}
 		}
 
-		System.out.println(minSum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(minSum);
 	}
 
 	private static long minSum(int x, int y) {
@@ -70,8 +73,8 @@ public class Problem082 {
 
 		long left = minSum(x - 1, y);
 		long above = y > 0 ? minSumAbove(x, y - 1) : Long.MAX_VALUE;
-		long below =
-				y + 1 < nums.length ? minSumBelow(x, y + 1) : Long.MAX_VALUE;
+		long below = (y + 1 < nums.length
+				? minSumBelow(x, y + 1) : Long.MAX_VALUE);
 
 		sums[y][x] = Math.min(Math.min(left, above), below) + nums[y][x];
 		return sums[y][x];
@@ -97,6 +100,6 @@ public class Problem082 {
 		long below =
 				y + 1 < nums.length ? minSumBelow(x, y + 1) : Long.MAX_VALUE;
 
-		return Math.min(left, below) + nums[y][x];
+				return Math.min(left, below) + nums[y][x];
 	}
 }

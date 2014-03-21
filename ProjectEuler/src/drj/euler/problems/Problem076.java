@@ -1,6 +1,6 @@
 package drj.euler.problems;
 
-import drj.euler.Utility;
+import drj.euler.Problem;
 
 /**
  * It is possible to write five as a sum in exactly six different ways:
@@ -15,20 +15,22 @@ import drj.euler.Utility;
  * How many different ways can one hundred be written as a sum of at least two
  * positive integers?
  */
-public class Problem076 {
-	
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+public class Problem076 extends Problem {
 
+	public static void main(String[] args) {
+		Problem p = new Problem076();
+		System.out.println(p);
+	}
+
+	@Override
+	protected String onSolve() {
 		int[] nums = new int[99];
 		for (int i = 0; i < 99; i++) {
 			nums[i] = i + 1;
 		}
 		int target = 100;
 
-		System.out.println(combinations(nums, target));
-		System.out.println(t.toDecimalString());
+		return String.valueOf(combinations(nums, target));
 	}
 
 	private static int combinations(int[] nums, int target) {

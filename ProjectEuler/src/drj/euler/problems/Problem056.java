@@ -2,6 +2,7 @@ package drj.euler.problems;
 
 import java.math.BigInteger;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -12,12 +13,15 @@ import drj.euler.Utility;
  * Considering natural numbers of the form, a^b, where a, b < 100, what is the
  * maximum digital sum?
  */
-public class Problem056 {
+public class Problem056 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem056();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		int maxSum = 0;
 
 		for (int a = 1; a < 100; a++) {
@@ -28,12 +32,10 @@ public class Problem056 {
 			}
 		}
 
-		System.out.println(maxSum);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(maxSum);
 	}
 
 	private static int digitalSum(BigInteger num) {
-
 		int sum = 0;
 
 		for (char digit : num.toString().toCharArray()) {

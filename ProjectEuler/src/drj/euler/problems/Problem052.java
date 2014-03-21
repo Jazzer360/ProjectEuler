@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -9,12 +10,15 @@ import drj.euler.Utility;
  * Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x,
  * contain the same digits.
  */
-public class Problem052 {
+public class Problem052 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem052();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		boolean answerFound = false;
 		for (int i = 1; !answerFound; i++) {
 			for (int j = 2; j <= 6; j++) {
@@ -22,11 +26,11 @@ public class Problem052 {
 					break;
 				} else if (j == 6) {
 					answerFound = true;
-					System.out.println(i);
+					return String.valueOf(i);
 				}
 			}
 		}
 
-		System.out.println(t.toDecimalString());
+		return "not found";
 	}
 }

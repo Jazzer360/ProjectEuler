@@ -3,6 +3,7 @@ package drj.euler.problems;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 import drj.euler.Utility.PrimeSieve;
 
@@ -16,16 +17,19 @@ import drj.euler.Utility.PrimeSieve;
  * Find the lowest sum for a set of five primes for which any two primes
  * concatenate to produce another prime.
  */
-public class Problem060 {
+public class Problem060 extends Problem {
+
+	public static void main(String[] args) {
+		Problem p = new Problem060();
+		System.out.println(p);
+	}
 
 	private static final PrimeSieve s = new PrimeSieve();
 	private static final TreeMap<Integer, TreeSet<Integer>>	concatables =
 			(new TreeMap<>());
 
-	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
-
+	@Override
+	protected String onSolve() {
 		long prime = s.nextPrime(30);
 
 		while (prime < 10_000_000) {
@@ -33,8 +37,7 @@ public class Problem060 {
 			prime = s.nextPrime(prime);
 		}
 
-		System.out.println(getPrimeSet(4, 3, null));
-		System.out.println(t.toDecimalString());
+		return getPrimeSet(4, 3, null).toString();
 	}
 
 	private static void splitPrime(long prime) {

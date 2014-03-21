@@ -1,5 +1,6 @@
 package drj.euler.problems;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -15,12 +16,15 @@ import drj.euler.Utility;
  * 
  * 		d1 x d10 x d100 x d1000 x d10000 x d100000 x d1000000
  */
-public class Problem040 {
+public class Problem040 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem040();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		StringBuilder decimal = new StringBuilder();
 
 		for (int i = 1; decimal.length() < 1_000_000; i++) {
@@ -33,7 +37,6 @@ public class Problem040 {
 			product *= Utility.charToInt(decimal.charAt(i - 1));
 		}
 
-		System.out.println(product);
-		System.out.println(t.toDecimalString());
+		return String.valueOf(product);
 	}
 }

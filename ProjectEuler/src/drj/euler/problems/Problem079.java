@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
@@ -18,48 +19,51 @@ import drj.euler.Utility;
  * file so as to determine the shortest possible secret password of unknown
  * length.
  */
-public class Problem079 {
+public class Problem079 extends Problem {
 
 	public static void main(String[] args) {
-		Utility.Timer t = new Utility.Timer();
-		t.start();
+		Problem p = new Problem079();
+		System.out.println(p);
+	}
 
+	@Override
+	protected String onSolve() {
 		String filePath = "external data/keylog.txt";
 		Map<Character, HashSet<Character>> digitsAfter =
-				new HashMap<Character, HashSet<Character>>();
+				new HashMap<>();
 
 		for (String login : Utility.getFileContents(filePath)) {
-			char d1 = login.charAt(0);
-			char d2 = login.charAt(1);
-			char d3 = login.charAt(2);
+			char key1 = login.charAt(0);
+			char key2 = login.charAt(1);
+			char key3 = login.charAt(2);
 			HashSet<Character> c1;
 			HashSet<Character> c2;
 
-			if (!digitsAfter.containsKey(d1)) {
+			if (!digitsAfter.containsKey(key1)) {
 				c1 = new HashSet<Character>();
-				c1.add(d2);
-				c1.add(d3);
-				digitsAfter.put(d1, c1);
+				c1.add(key2);
+				c1.add(key3);
+				digitsAfter.put(key1, c1);
 			} else {
-				c1 = digitsAfter.get(d1);
-				c1.add(d2);
-				c1.add(d3);
+				c1 = digitsAfter.get(key1);
+				c1.add(key2);
+				c1.add(key3);
 			}
 
-			if (!digitsAfter.containsKey(d2)) {
+			if (!digitsAfter.containsKey(key2)) {
 				c2 = new HashSet<Character>();
-				c2.add(d3);
-				digitsAfter.put(d2, c2);
+				c2.add(key3);
+				digitsAfter.put(key2, c2);
 			} else {
-				c2 = digitsAfter.get(d2);
-				c2.add(d3);
+				c2 = digitsAfter.get(key2);
+				c2.add(key3);
 			}
 		}
 
 		StringBuilder password = new StringBuilder();
 
 		while (!digitsAfter.isEmpty()) {
-			char digit = 'a';
+			char digit = 0;
 			int fewestFollowers = 10;
 
 			for (char c = '0'; c <= '9'; c++) {
@@ -85,7 +89,6 @@ public class Problem079 {
 			}
 		}
 
-		System.out.println(password);
-		System.out.println(t.toDecimalString());
+		return password.toString();
 	}
 }
