@@ -31,25 +31,18 @@ public abstract class Problem {
 
 	@Override
 	public String toString() {
-		boolean solved = false;
-		boolean correct = false;
 		Answer answer = getClass().getAnnotation(Answer.class);
-		if (answer != null) {
-			solved = true;
-			correct = answer.value().equals(this.answer);
-		}
+		boolean solved = answer != null ? true : false;
 
-		String status = "";
+		String extra = "";
 
-		if (!solved) {
-			status = " - Not solved.";
-		} else if (!correct) {
-			status = " - INCORRECT! (" + answer.value() + ")";
+		if (solved && !answer.value().equals(this.answer)) {
+			extra = " - INCORRECT! (" + answer.value() + ")";
 		}
 
 		return this.getClass().getSimpleName()
 				+ " answer: " + this.answer
 				+ " - " + this.time
-				+ status;
+				+ extra;
 	}
 }

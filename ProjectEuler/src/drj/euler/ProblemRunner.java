@@ -13,6 +13,8 @@ public class ProblemRunner {
 			if (c.getAnnotation(Answer.class) != null) {
 				Problem p = (Problem) (c.newInstance());
 				System.out.println(p);
+			} else {
+				System.out.println(className + " not solved.");
 			}
 		}
 	}
