@@ -30,7 +30,7 @@ public class Problem079 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/keylog.txt";
+		String filePath = "data/keylog.txt";
 		Map<Character, HashSet<Character>> digitsAfter =
 				new HashMap<>();
 

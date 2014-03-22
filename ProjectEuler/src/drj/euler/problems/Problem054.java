@@ -72,7 +72,7 @@ public class Problem054 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/poker.txt";
+		String filePath = "data/poker.txt";
 
 		List<Hand> p1Hands = new ArrayList<Hand>();
 		List<Hand> p2Hands = new ArrayList<Hand>();

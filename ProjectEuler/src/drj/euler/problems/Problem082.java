@@ -37,7 +37,7 @@ public class Problem082 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/matrix3.txt";
+		String filePath = "data/matrix3.txt";
 		List<String> lines = Utility.getFileContents(filePath);
 
 		nums = new long[lines.size()][];

@@ -46,7 +46,7 @@ public class Problem089 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/roman.txt";
+		String filePath = "data/roman.txt";
 
 		List<String> numerals = Utility.getFileContents(filePath);
 		int startCount = 0;

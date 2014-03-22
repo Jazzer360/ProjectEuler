@@ -28,7 +28,7 @@ public class Problem099 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/base_exp.txt";
+		String filePath = "data/base_exp.txt";
 
 		int currLine = 0;
 		int maxLine = 0;

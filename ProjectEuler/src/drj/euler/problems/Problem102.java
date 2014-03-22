@@ -33,7 +33,7 @@ public class Problem102 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/triangles.txt";
+		String filePath = "data/triangles.txt";
 
 		int containsOriginCount = 0;
 

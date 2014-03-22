@@ -45,7 +45,7 @@ public class Problem059 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/cipher1.txt";
+		String filePath = "data/cipher1.txt";
 		List<Integer> encrypted = new ArrayList<Integer>();
 
 		String line = Utility.getFileContents(filePath).get(0);

@@ -11,8 +11,13 @@ public class ProblemRunner {
 			String className = f.getName().replace(".java", "");
 			Class<?> c = Class.forName(classPrefix + className);
 			if (c.getAnnotation(Answer.class) != null) {
-				Problem p = (Problem) (c.newInstance());
-				System.out.println(p);
+				try {
+					Problem p = (Problem) (c.newInstance());
+					System.out.println(p);
+				} catch (Exception e) {
+					System.out.println(className + " threw "
+							+ e.getClass().getSimpleName());
+				}
 			} else {
 				System.out.println(className + " not solved.");
 			}

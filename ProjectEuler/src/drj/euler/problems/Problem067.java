@@ -38,7 +38,7 @@ public class Problem067 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/triangle.txt";
+		String filePath = "data/triangle.txt";
 		List<String[]> pyramid = new ArrayList<String[]>();
 
 		for (String line : Utility.getFileContents(filePath)) {

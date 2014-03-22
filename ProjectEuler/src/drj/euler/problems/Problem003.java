@@ -7,7 +7,7 @@ import drj.euler.Utility;
 /**
  * The prime factors of 13195 are 5, 7, 13 and 29.
  * 
- * What is the largest prime factor of the number 600851475143 ?
+ * <p>What is the largest prime factor of the number 600851475143 ?
  */
 @Answer("6857")
 public class Problem003 extends Problem {

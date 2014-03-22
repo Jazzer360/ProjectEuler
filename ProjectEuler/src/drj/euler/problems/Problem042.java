@@ -32,7 +32,7 @@ public class Problem042 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		String filePath = "external data/words.txt";
+		String filePath = "data/words.txt";
 		List<String> words = new ArrayList<String>();
 
 		String line = Utility.getFileContents(filePath).get(0);
