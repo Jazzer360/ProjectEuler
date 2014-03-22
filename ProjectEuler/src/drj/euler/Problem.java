@@ -22,7 +22,7 @@ public abstract class Problem {
 	 */
 	protected abstract String onSolve();
 
-	private final void solve() {
+	private void solve() {
 		Utility.Timer t = new Utility.Timer();
 		t.start();
 		answer = onSolve();
