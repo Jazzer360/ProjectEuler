@@ -18,34 +18,6 @@ import java.util.function.Function;
  */
 public class AsyncWorker<I, O> {
 
-	private class ComputationTask implements Runnable {
-		private boolean interrupted = false;
-		@Override
-		public void run() {
-			try {
-				while (true) {
-					try {
-						I in;
-						synchronized (input) {
-							if (shutdown && input.isEmpty()) {
-								break;
-							} else {
-								in = input.take();
-							}
-						}
-						O out = computation.apply(in);
-						if (out != null) output.put(in, out);
-					} catch (InterruptedException e) {
-						interrupted = true;
-					}
-				}
-			} finally {
-				latch.countDown();
-				if (interrupted) Thread.currentThread().interrupt();
-			}
-		}
-	}
-
 	private final Function<I, O> computation;
 	private final ExecutorService exec;
 	private final BlockingQueue<I> input;
@@ -68,7 +40,30 @@ public class AsyncWorker<I, O> {
 		latch = new CountDownLatch(threads);
 		shutdown = false;
 		for (int i = 0; i < threads; i++) {
-			exec.execute(new ComputationTask());
+			exec.execute(() -> {
+				boolean interrupted = false;
+				try {
+					while (true) {
+						try {
+							I in;
+							synchronized (input) {
+								if (shutdown && input.isEmpty()) {
+									break;
+								} else {
+									in = input.take();
+								}
+							}
+							O out = this.computation.apply(in);
+							if (out != null) output.put(in, out);
+						} catch (InterruptedException e) {
+							interrupted = true;
+						}
+					}
+				} finally {
+					latch.countDown();
+					if (interrupted) Thread.currentThread().interrupt();
+				}
+			});
 		}
 	}
 
