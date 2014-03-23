@@ -7,9 +7,9 @@ import drj.euler.Problem;
  * If p is the perimeter of a right angle triangle with integral length sides,
  * {a,b,c}, there are exactly three solutions for p = 120.
  * 
- * 		{20,48,52}, {24,45,51}, {30,40,50}
+ * <p>		{20,48,52}, {24,45,51}, {30,40,50}
  * 
- * For which value of p <= 1000, is the number of solutions maximized?
+ * <p>For which value of p <= 1000, is the number of solutions maximized?
  */
 @Answer("840")
 public class Problem039 extends Problem {

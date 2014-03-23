@@ -12,7 +12,7 @@ import drj.euler.Utility;
  * digits 1 to n exactly once. For example, 2143 is a 4-digit pandigital and is
  * also prime.
  * 
- * What is the largest n-digit pandigital prime that exists?
+ * <p>What is the largest n-digit pandigital prime that exists?
  */
 @Answer("7652413")
 public class Problem041 extends Problem {

@@ -9,15 +9,15 @@ import drj.euler.Utility;
 /**
  * If we take 47, reverse and add, 47 + 74 = 121, which is palindromic.
  * 
- * Not all numbers produce palindromes so quickly. For example,
+ * <p>Not all numbers produce palindromes so quickly. For example,
  * 
- * 		349 + 943 = 1292
- * 		1292 + 2921 = 4213
- * 		4213 + 3124 = 7337
+ * <p>		349 + 943 = 1292
+ * <br>		1292 + 2921 = 4213
+ * <br>		4213 + 3124 = 7337
  * 
- * That is, 349 took three iterations to arrive at a palindrome.
+ * <p>That is, 349 took three iterations to arrive at a palindrome.
  * 
- * Although no one has proved it yet, it is thought that some numbers, like
+ * <p>Although no one has proved it yet, it is thought that some numbers, like
  * 196, never produce a palindrome. A number that never forms a palindrome
  * through the reverse and add process is called a Lychrel number. Due to the
  * theoretical nature of these numbers, and for the purpose of this problem, we
@@ -29,12 +29,12 @@ import drj.euler.Utility;
  * fifty iterations before producing a palindrome: 4668731596684224866951378664
  * (53 iterations, 28-digits).
  * 
- * Surprisingly, there are palindromic numbers that are themselves Lychrel
+ * <p>Surprisingly, there are palindromic numbers that are themselves Lychrel
  * numbers; the first example is 4994.
  * 
- * How many Lychrel numbers are there below ten-thousand?
+ * <p>How many Lychrel numbers are there below ten-thousand?
  * 
- * NOTE: Wording was modified slightly on 24 April 2007 to emphasize the
+ * <p>NOTE: Wording was modified slightly on 24 April 2007 to emphasize the
  * theoretical nature of Lychrel numbers.
  */
 @Answer("249")

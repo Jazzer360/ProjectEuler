@@ -8,16 +8,16 @@ import drj.euler.Utility;
  * It was proposed by Christian Goldbach that every odd composite number can be
  * written as the sum of a prime and twice a square.
  * 
- * 9 = 7 + 2x1^2
- * 15 = 7 + 2x2^2
- * 21 = 3 + 2x3^2
- * 25 = 7 + 2x3^2
- * 27 = 19 + 2x2^2
- * 33 = 31 + 2x1^2
+ * <p>9 = 7 + 2x1^2
+ * <br>15 = 7 + 2x2^2
+ * <br>21 = 3 + 2x3^2
+ * <br>25 = 7 + 2x3^2
+ * <br>27 = 19 + 2x2^2
+ * <br>33 = 31 + 2x1^2
  *
- * It turns out that the conjecture was false.
+ * <p>It turns out that the conjecture was false.
  *
- * What is the smallest odd composite that cannot be written as the sum of a
+ * <p>What is the smallest odd composite that cannot be written as the sum of a
  * prime and twice a square?
  */
 @Answer("5777")

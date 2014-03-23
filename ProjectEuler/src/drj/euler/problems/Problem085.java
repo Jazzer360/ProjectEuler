@@ -7,12 +7,12 @@ import drj.euler.Problem;
 
 /**
  * By counting carefully it can be seen that a rectangular grid measuring
- * 3 by 2 contains eighteen rectangles:
- * 	 _			 _ _		 _ _ _		
- * 	|_| - 6		|_|_| - 4	|_|_|_| - 2	
- * 	 _			 _ _		 _ _ _
- * 	|_| - 3		|_|_| - 2	|_|_|_| - 1
- * 	|_|			|_|_|		|_|_|_|
+ * 3 by 2 contains eighteen rectangles:<pre>
+ *   _           _ _         _ _ _
+ *  |_| - 6     |_|_| - 4   |_|_|_| - 2
+ *   _           _ _         _ _ _
+ *  |_| - 3     |_|_| - 2   |_|_|_| - 1
+ *  |_|         |_|_|       |_|_|_|</pre>
  * 
  * Although there exists no rectangular grid that contains exactly two million
  * rectangles, find the area of the grid with the nearest solution.

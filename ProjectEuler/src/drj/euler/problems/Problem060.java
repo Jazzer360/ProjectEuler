@@ -14,7 +14,7 @@ import drj.euler.Utility.PrimeSieve;
  * these four primes, 792, represents the lowest sum for a set of four primes
  * with this property.
  * 
- * Find the lowest sum for a set of five primes for which any two primes
+ * <p>Find the lowest sum for a set of five primes for which any two primes
  * concatenate to produce another prime.
  */
 public class Problem060 extends Problem {

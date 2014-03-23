@@ -10,10 +10,10 @@ import drj.euler.Utility;
  * at each stage: 3797, 797, 97, and 7. Similarly we can work from right to
  * left: 3797, 379, 37, and 3.
  * 
- * Find the sum of the only eleven primes that are both truncatable from left
- * to right and right to left.
+ * <p>Find the sum of the only eleven primes that are both truncatable from
+ * left to right and right to left.
  * 
- * NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
+ * <p>NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
  */
 @Answer("748317")
 public class Problem037 extends Problem {

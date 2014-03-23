@@ -6,9 +6,9 @@ import drj.euler.Problem;
 /**
  * Find the unique positive integer whose square has the form
  * 
- * 		1_2_3_4_5_6_7_8_9_0
+ * <p>		1_2_3_4_5_6_7_8_9_0
  * 
- * where each “_” is a single digit.
+ * <p>where each “_” is a single digit.
  */
 @Answer("1389019170")
 public class Problem206 extends Problem {

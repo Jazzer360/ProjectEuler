@@ -13,8 +13,8 @@ import drj.euler.Problem;
  * 56623104 (384^3) and 66430125 (405^3). In fact, 41063625 is the smallest
  * cube which has exactly three permutations of its digits which are also cube.
  * 
- * Find the smallest cube for which exactly five permutations of its digits are
- * cube.
+ * <p>Find the smallest cube for which exactly five permutations of its digits
+ * are cube.
  */
 @Answer("127035954683")
 public class Problem062 extends Problem {
