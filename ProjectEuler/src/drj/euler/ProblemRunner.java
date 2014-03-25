@@ -9,11 +9,19 @@ public class ProblemRunner {
 		File problemsDir = new File("src/drj/euler/problems");
 		for (File f : problemsDir.listFiles()) {
 			String className = f.getName().replace(".java", "");
-			Class<?> c = Class.forName(classPrefix + className);
-			if (c.getAnnotation(Answer.class) != null) {
+			Class<?> c = null;
+			try {
+				c = Class.forName(classPrefix + className);
+			} catch (Exception e1) {
+				System.out.println(f.getName() + " is not a java file.");
+				continue;
+			}
+			if (c.isAnnotationPresent(Answer.class)) {
 				try {
 					Problem p = (Problem) (c.newInstance());
 					System.out.println(p);
+				} catch (ClassCastException e) {
+					System.out.println(className + " must extend Problem");
 				} catch (Exception e) {
 					System.out.println(className + " threw "
 							+ e.getClass().getSimpleName());
