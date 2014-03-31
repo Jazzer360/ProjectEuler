@@ -772,19 +772,12 @@ public final class Utility {
 	 * @return		true if the number is prime, otherwise false
 	 */
 	public static boolean isPrime(int num) {
-		if (num < 2) {
-			return false;
-		} else if (num < 4) {
-			return true;
-		} else if (num % 2 == 0 || num % 3 == 0) {
-			return false;
-		} else if (num < 9) {
-			return true;
-		}
+		if (num < 2) return false;
+		else if (num < 4) return true;
+		else if (num % 2 == 0 || num % 3 == 0) return false;
+		else if (num < 9) return true;
 		for (int i = 5, lim = (int) Math.sqrt(num); i <= lim; i += 6) {
-			if (num % i == 0 || num % (i + 2) == 0) {
-				return false;
-			}
+			if (num % i == 0 || num % (i + 2) == 0) return false;
 		}
 		return true;
 	}
@@ -797,19 +790,12 @@ public final class Utility {
 	 * @return		true if the number is prime, otherwise false
 	 */
 	public static boolean isPrime(long num) {
-		if (num < 2) {
-			return false;
-		} else if (num < 4) {
-			return true;
-		} else if (num % 2 == 0 || num % 3 == 0) {
-			return false;
-		} else if (num < 9) {
-			return true;
-		}
+		if (num < 2) return false;
+		else if (num < 4) return true;
+		else if (num % 2 == 0 || num % 3 == 0) return false;
+		else if (num < 9) return true;
 		for (long i = 5, lim = (long) Math.sqrt(num); i <= lim; i += 6) {
-			if (num % i == 0 || num % (i + 2) == 0) {
-				return false;
-			}
+			if (num % i == 0 || num % (i + 2) == 0) return false;
 		}
 		return true;
 	}
