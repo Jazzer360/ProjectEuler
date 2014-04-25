@@ -546,9 +546,7 @@ public final class Utility {
 		int big = Math.max(num1, num2);
 		int small = Math.min(num1, num2);
 
-		if (small == 0) {
-			return 0;
-		} else if (big % small == 0) {
+		if (small == 0 || big % small == 0) {
 			return small;
 		} else {
 			return getGCF(big % small, small);
