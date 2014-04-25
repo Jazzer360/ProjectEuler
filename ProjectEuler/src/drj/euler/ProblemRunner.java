@@ -4,21 +4,21 @@ import java.io.File;
 
 public class ProblemRunner {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		String classPrefix = "drj.euler.problems.";
 		File problemsDir = new File("src/drj/euler/problems");
-		for (File f : problemsDir.listFiles()) {
-			String className = f.getName().replace(".java", "");
-			Class<?> c = null;
+		for (File file : problemsDir.listFiles()) {
+			String className = file.getName().replace(".java", "");
+			Class<?> problem = null;
 			try {
-				c = Class.forName(classPrefix + className);
-			} catch (Exception e1) {
-				System.out.println(f.getName() + " is not a java file.");
+				problem = Class.forName(classPrefix + className);
+			} catch (ClassNotFoundException e) {
+				System.out.println(e.getMessage());
 				continue;
 			}
-			if (c.isAnnotationPresent(Answer.class)) {
+			if (problem.isAnnotationPresent(Answer.class)) {
 				try {
-					Problem p = (Problem) (c.newInstance());
+					Problem p = (Problem) (problem.newInstance());
 					System.out.println(p);
 				} catch (ClassCastException e) {
 					System.out.println(className + " must extend Problem");
