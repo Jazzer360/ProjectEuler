@@ -25,16 +25,12 @@ public class Problem009 extends Problem {
 	protected String onSolve() {
 		for (int a = 1; a < 1000; a++) {
 			for (int b = a + 1; true; b++) {
-				if (a + b > 1000) {
+				if (a + 2 * b + 1 > 1000) {
 					break;
 				}
-				for (int c = b + 1; true; c++) {
-					if (a + b + c > 1000) {
-						break;
-					}
-					if (a + b + c == 1000 && isPythagoreanTriplet(a,b,c)) {
-						return String.valueOf(a * b * c);
-					}
+				int c = 1000 - a - b;
+				if (isPythagoreanTriplet(a,b,c)) {
+					return String.valueOf(a * b * c);
 				}
 			}
 		}
