@@ -5,7 +5,7 @@ import drj.euler.Problem;
 import drj.euler.Utility;
 
 /**
- * Find the greatest product of five consecutive digits in the 1000-digit
+ * Find the greatest product of thirteen consecutive digits in the 1000-digit
  * number.
  * 
  * <p>	73167176531330624919225119674426574742355349194934
@@ -29,7 +29,7 @@ import drj.euler.Utility;
  * 		05886116467109405077541002256983155200055935729725
  * 		71636269561882670428252483600823257530420752963450
  */
-@Answer("40824")
+@Answer("23514624000")
 public class Problem008 extends Problem {
 
 	public static void main(String[] args) {
@@ -61,12 +61,12 @@ public class Problem008 extends Problem {
 				"05886116467109405077541002256983155200055935729725"+
 				"71636269561882670428252483600823257530420752963450";
 
-		int maxProduct = 0;
+		long maxProduct = 0;
 
-		for (int i = 0; i < sequence.length() - 4; i++) {
-			int product = 1;
-			for (int j = 0; j < 5; j++) {
-				product *= (Utility.charToInt(sequence.charAt(i + j)));
+		for (int i = 0; i < sequence.length() - 12; i++) {
+			long product = 1;
+			for (int j = 0; j < 13; j++) {
+				product *= Utility.charToInt(sequence.charAt(i + j));
 			}
 			if (product > maxProduct) {
 				maxProduct = product;
