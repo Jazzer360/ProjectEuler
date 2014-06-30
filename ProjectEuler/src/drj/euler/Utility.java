@@ -48,7 +48,7 @@ public final class Utility {
 		 */
 		public long getMillis() {
 			if (isRunning) {
-				return totalMs + System.currentTimeMillis() - startedMs;
+				return totalMs + currentMs() - startedMs;
 			} else {
 				return totalMs;
 			}
@@ -70,7 +70,7 @@ public final class Utility {
 		 */
 		public void reset() {
 			if (isRunning) {
-				startedMs = System.currentTimeMillis();
+				startedMs = currentMs();
 			}
 			totalMs = 0;
 		}
@@ -81,7 +81,7 @@ public final class Utility {
 		public void start() {
 			if (!isRunning) {
 				isRunning = true;
-				startedMs = System.currentTimeMillis();
+				startedMs = currentMs();
 			}
 		}
 
@@ -90,7 +90,7 @@ public final class Utility {
 		 */
 		public void stop() {
 			if (isRunning) {
-				totalMs += System.currentTimeMillis() - startedMs;
+				totalMs += currentMs() - startedMs;
 				isRunning = false;
 			}
 		}
@@ -165,6 +165,10 @@ public final class Utility {
 					time /= SEGMENT_MULTIPLES[i];
 				}
 			}
+		}
+
+		private static long currentMs() {
+			return System.nanoTime() / 1_000_000;
 		}
 	}
 
