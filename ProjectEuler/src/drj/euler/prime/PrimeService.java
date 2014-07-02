@@ -1,8 +1,30 @@
 package drj.euler.prime;
 
-public interface PrimeService extends PrimeChecker {
+/**
+ * A service that handles various prime-related requests.
+ */
+public abstract class PrimeService implements PrimeChecker {
 
-	public static final long MAX_PRIME = 9223372036854775783L;
+	/**
+	 * Returns the first prime number greater than the submitted number.
+	 * 
+	 * @param num
+	 *            the number to start the search for the next prime from
+	 * @return the first prime number greater than the one submitted
+	 */
+	public long nextPrime(long num) {
+		if (num >= MAX_PRIME)
+			throw new IllegalArgumentException(
+					"No primes greater than " + num
+							+ " that fit in a long");
 
-	public long nextPrime(long num);
+		if (num % 2 == 0)
+			num++;
+
+		while (!isPrime(num)) {
+			num += 2;
+		}
+
+		return num;
+	}
 }

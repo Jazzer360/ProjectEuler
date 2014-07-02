@@ -1,5 +1,14 @@
 package drj.euler.prime;
 
+/**
+ * A static factory for various {@link PrimeService} implementations.
+ * 
+ * <p>
+ * Implementations:
+ * <ul>
+ * <li>{@link #basicPrimeChecker()} - A simple
+ * stateless implementation that performs each calculation independently.
+ */
 public class PrimeServices {
 
 	private PrimeServices() {
@@ -58,11 +67,4 @@ public class PrimeServices {
 		};
 	}
 
-	public static PrimeService sieveOnStorage() {
-
-	}
-
-	public static PrimeService sieveInMemory() {
-
-	}
 }
