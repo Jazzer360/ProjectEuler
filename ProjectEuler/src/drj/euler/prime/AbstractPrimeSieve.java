@@ -26,7 +26,7 @@ abstract class AbstractPrimeSieve extends PrimeService {
 		public Thread newThread(Runnable r) {
 			Thread thread = new Thread(r);
 			thread.setDaemon(true);
-			return new Thread(r);
+			return thread;
 		}
 	}
 
