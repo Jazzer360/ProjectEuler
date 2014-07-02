@@ -1,147 +1,192 @@
 package drj.euler.prime;
 
+import java.util.Collection;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Implementations must provide backing data structure to hold the prime status
+ * of positive odd integers. Since this abstraction is designed to be thread
+ * safe, subclasses MUST ensure that calls to setNotPrime
+ */
 abstract class AbstractPrimeSieve extends PrimeService {
 
-	/*
-	 * TODO Fields Needed
-	 * 
-	 * Type: ExecutorService
-	 * An executor that can appropriately handle each submitted request to
-	 * isPrime(long). This should gracefully handle a swarm of requests to
-	 * isPrime(long) while waiting for calculation to complete.
-	 *   Considerations:
-	 *     Requests sent to this executor should complete quickly IF the prime
-	 *       status is computed for the submitted input.
-	 *     If the sieve is not filled up to the number submitted, how should
-	 *       isPrime(long) behave?
-	 */
-	private ExecutorService queryService = Executors.newCachedThreadPool();
-	private Object sieveLock = new Object();
-	
-	private AtomicLong sievedTo = new AtomicLong();;
+	private static class DaemonThreadFactory implements ThreadFactory {
+		@Override
+		public Thread newThread(Runnable r) {
+			Thread thread = new Thread(r);
+			thread.setDaemon(true);
+			return new Thread(r);
+		}
+	}
+
+	private static final int CORES = Runtime.getRuntime().availableProcessors();
+
+	protected AtomicLong sievedTo = new AtomicLong();
+	private Lock sieveLock = new ReentrantLock();
+	private CountDownLatch latch;
+	private ExecutorService queryService = Executors
+			.newCachedThreadPool(new DaemonThreadFactory());
+	private ExecutorService sieveService = Executors.newFixedThreadPool(
+			CORES + 1, new DaemonThreadFactory());
 
 	/**
-	 * TODO
+	 * Subclasses must implement this method to check the backing data to see if
+	 * the submitted number is prime.
 	 * 
 	 * @param num
-	 * @param prime
-	 */
-	protected abstract void setPrime(long num, boolean prime);
-
-	/**
-	 * TODO
-	 * 
-	 * Need: sievedTo
-	 * 
-	 * Is the number
-	 * 
-	 * @param num
-	 * @return
+	 *            number to check if prime
+	 * @return true if the submitted number is prime
 	 */
 	protected abstract boolean checkPrime(long num);
 
-	public final void sieveTo(long num) {
-		/*
-		 * TODO
-		 * 
-		 * Concurrency: Should be okay if we sieve, then change sievedTo, but
-		 * we need to be able to concurrently handle requests to isPrime(long)
-		 * when the sieve hasn't sorted there yet.
-		 * 
-		 * Exploitable Parallellism: We can accumulate which bits to set in
-		 * parallell. However, if we are to do any I/O operation, like file
-		 * writing, we must do those serially. Maybe we change the
-		 * setPrime(long, boolean) method to something like setNotPrime(long...)
-		 * This would allow us to specify in our implementation, a way to take
-		 * advantage of a batch of changes to the underlying sieve
-		 * implementation.
-		 * 
-		 * Condition: Is the sieve already sorted to the given number?
-		 * 
-		 * Need: Number last sorted to (so we know where to begin the
-		 * sorting)
-		 * 
-		 * Algorithm: 
-		 * 
-		 * Iterate through each prime found so far
-		 * ?is num / 2 okay with the truncation?
-		 * 
-		 * cases: 14, 15, 16
-		 * for (long prime = 3; prime <= num / 2; prime = * nextPrime(prime))
-		 *   case: 14 (prime <= 7)
-		 *   case: 15 (prime <= 7)
-		 *   case: 16 (prime <= 8)
-		 *   
-		 * Each prime we iterate through, we start another
-		 * iteration of each (multiple) of the prime we're looking at, up to
-		 * (num) and setPrime(multiple, false).
-		 * case: multiple > Long.MAX_VALUE / 2
-		 * 
-		 *   for(long multiple = sievedTo; multiple < num / 2; multiple += prime)
-		 *     setPrime(multiple, false);
-		 *     case: 14 (multiple < 7)
-		 *     case: 15 (multiple < 7)
-		 *     case: 16 (multiple < 8)
-		 */
+	/**
+	 * Returns the number of odd numbers to check for primality on each sieving
+	 * pass. This number is exactly how many additional data points are required
+	 * for each sieve pass.
+	 * 
+	 * @return the amount of odd numbers to be sieved on the next sieve pass
+	 */
+	protected abstract long getSieveIncrement();
+
+	/**
+	 * Subclasses must handle any preparation required for the sieve process in
+	 * this method. Such examples would be expanding the sieve to accomodate the
+	 * additional number of data points the sieve will need. The number passed
+	 * is the number of additional data points this sieve requires on the next
+	 * sieve pass.
+	 * 
+	 * @param space
+	 *            number of additional data points the sieve must accomodate
+	 */
+	protected abstract void onSieveStart(long space);
+
+	/**
+	 * If a subclass needs to know how large the sieve is after each sieve pass
+	 * this method may be overridden to handle any internal changes after each
+	 * sieve pass completes. The number passed is the largest number that the
+	 * sieve has verified as prime or not prime and will always be odd.
+	 * 
+	 * @param sievedTo
+	 *            the number to which the sieve is sieved to
+	 */
+	protected void onSieveComplete(long sievedTo) {
+	}
+
+	/**
+	 * Subclasses must implement this method to change the backing data of the
+	 * sieve. In addition, the implementation must call
+	 * {@code latch.countDown()} on the latch for things to function properly.
+	 * Failing to do so will permanently block any threads querying for primes
+	 * that have not yet been sieved.
+	 * 
+	 * @param latch
+	 *            a latch which must be counted down after the backing data has
+	 *            been updated
+	 * @param nums
+	 *            non-prime numbers which we must set as non-prime in the
+	 *            backing data
+	 */
+	protected abstract void setNotPrime(CountDownLatch latch, long... nums);
+
+	private void sieve() {
+		long sievedTo = this.sievedTo.get();
+		long increment = Math.min(getSieveIncrement(), sievedTo);
+		onSieveStart(increment);
+		increment *= 2;
+		long target = increment + sievedTo;
+		long maxSieve = target / 3;
+
+		Collection<Runnable> runnables = new ConcurrentLinkedQueue<Runnable>();
+
+		class SieveTask implements Runnable {
+			private long prime;
+
+			private SieveTask(long prime) {
+				this.prime = prime;
+			}
+
+			@Override
+			public void run() {
+				long step = prime * 2;
+				long firstMultiple = sievedTo / prime + 1;
+				if (firstMultiple % 2 == 0)
+					firstMultiple++;
+				firstMultiple *= prime;
+				long multipleCount = (target - firstMultiple) / step + 1;
+				long[] multiples = new long[(int) multipleCount];
+				for (int i = 0; i < multipleCount; i++) {
+					multiples[i] = firstMultiple + step * i;
+				}
+				setNotPrime(latch, multiples);
+			}
+		}
+
+		for (long num = 3; num <= maxSieve; num += 2) {
+			if (isPrime(num))
+				runnables.add(new SieveTask(num));
+			/*
+			 * TODO
+			 * 
+			 * Issue is with nextPrime(prime) on each iteration. How can we get
+			 * all previously found primes differently?
+			 */
+		}
+
+		latch = new CountDownLatch(runnables.size());
+
+		for (Runnable runnable : runnables) {
+			sieveService.execute(runnable);
+		}
+
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			throw new CompletionException(e);
+		}
+
+		this.sievedTo.set(target);
+		onSieveComplete(this.sievedTo.get());
 	}
 
 	@Override
 	public boolean isPrime(long num) {
-		/*
-		 * TODO
-		 * 
-		 * Take the passed number and pass it off to the executor service that
-		 * handles queries to isPrime(long).
-		 * 
-		 * If the number is not yet sieved to, request that more sieving be done
-		 * (how much?). While sieving is being done, park the request until the
-		 * sieve has finished up to the next point. Maybe store the requests as
-		 * callables that can be dumped to the query service with a call to
-		 * invokeAll(Collection)
-		 * 
-		 * Consideration:
-		 * How to determine the amount of sieving be done?
-		 * Make a reasonable guess, but leave option up to user?
-		 * Can a unit of time be used? Probably not when the ever-increasing
-		 * iteration costs increase.
-		 * We know that the average gap between primes increases the bigger the
-		 * primes get. Should this factor into determining how much sieving we
-		 * do?
-		 * We know that we must at least sieve to the number requested, but
-		 * should we do more?
-		 * If a user is calling nextPrime(long) in a loop, on top of using the
-		 * default nextPrime(long) implementation, then we are basically calling
-		 * isPrime(long) repeatedly, which may stack up a long queue of requests
-		 * to isPrime(long).
-		 * What EXACTLY occurs during sieving?
-		 * Can we make the sieving sufficiently cheap enough and smart enough to
-		 * not do any redundant marking of non-primes, so that we don't have to
-		 * worry so much about the static cost of sieving the numbers?
-		 * We will ALWAYS need to walk through the prime numbers when sieving,
-		 * so that is a cost that we cannot mitigate any further.
-		 */
-		Future<Boolean> prime = queryService.submit(new Callable<Boolean>() {
+		if (num % 2 == 0)
+			return num == 2 ? true : false;
+		if (num < 2 || num > MAX_PRIME)
+			return false;
+		if (num > sievedTo.get()) {
+			sieveLock.lock();
+			if (num <= sievedTo.get()) {
+				sieveLock.unlock();
+				return isPrime(num);
+			}
+			sieve();
+			sieveLock.unlock();
+			return isPrime(num);
+		}
 
+		Future<Boolean> prime = queryService.submit(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				// TODO Auto-generated method stub
-				return null;
+				return checkPrime(num);
 			}
 		});
+
 		try {
 			return prime.get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
+		} catch (InterruptedException | ExecutionException e) {
+			throw new CompletionException(e);
 		}
-		return false;
 	}
 }

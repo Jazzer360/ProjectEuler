@@ -47,23 +47,6 @@ public class PrimeServices {
 				}
 				return true;
 			}
-
-			@Override
-			public long nextPrime(long num) {
-				if (num >= MAX_PRIME)
-					throw new IllegalArgumentException(
-							"No primes greater than " + num
-									+ " that fit in a long");
-
-				if (num % 2 == 0)
-					num++;
-
-				while (!isPrime(num)) {
-					num += 2;
-				}
-
-				return num;
-			}
 		};
 	}
 
