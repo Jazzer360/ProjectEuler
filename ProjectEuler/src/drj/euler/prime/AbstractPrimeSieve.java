@@ -104,8 +104,8 @@ abstract class AbstractPrimeSieve extends PrimeService {
 		long increment = Math.min(getSieveIncrement(), sievedTo);
 		onSieveStart(increment);
 		increment *= 2;
-		long target = increment + sievedTo;
-		long maxSieve = target / 3;
+		long sieveTarget = increment + sievedTo;
+		long maxSieve = sieveTarget / 3;
 
 		Collection<Runnable> runnables = new ConcurrentLinkedQueue<Runnable>();
 
@@ -123,7 +123,8 @@ abstract class AbstractPrimeSieve extends PrimeService {
 				if (firstMultiple % 2 == 0)
 					firstMultiple++;
 				firstMultiple *= prime;
-				long multipleCount = (target - firstMultiple) / step + 1;
+				long multipleCount = (long) (Math
+						.floor((sieveTarget - firstMultiple) / (double) step) + 1);
 				long[] multiples = new long[(int) multipleCount];
 				for (int i = 0; i < multipleCount; i++) {
 					multiples[i] = firstMultiple + step * i;
@@ -135,12 +136,6 @@ abstract class AbstractPrimeSieve extends PrimeService {
 		for (long num = 3; num <= maxSieve; num += 2) {
 			if (isPrime(num))
 				runnables.add(new SieveTask(num));
-			/*
-			 * TODO
-			 * 
-			 * Issue is with nextPrime(prime) on each iteration. How can we get
-			 * all previously found primes differently?
-			 */
 		}
 
 		latch = new CountDownLatch(runnables.size());
@@ -155,7 +150,7 @@ abstract class AbstractPrimeSieve extends PrimeService {
 			throw new CompletionException(e);
 		}
 
-		this.sievedTo.set(target);
+		this.sievedTo.set(sieveTarget);
 		onSieveComplete(this.sievedTo.get());
 	}
 
