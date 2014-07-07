@@ -25,7 +25,7 @@ public class Problem010 extends Problem {
 
 		for (int prime = 2;
 				prime < 2_000_000;
-				prime = (int) p.nextPrime(prime)) {
+				prime = (int) p.getNextPrime(prime)) {
 			sum += prime;
 		}
 

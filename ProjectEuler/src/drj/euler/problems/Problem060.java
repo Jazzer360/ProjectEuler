@@ -30,11 +30,11 @@ public class Problem060 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		long prime = s.nextPrime(30);
+		long prime = s.getNextPrime(30);
 
 		while (prime < 10_000_000) {
 			splitPrime(prime);
-			prime = s.nextPrime(prime);
+			prime = s.getNextPrime(prime);
 		}
 
 		return getPrimeSet(4, 3, null).toString();

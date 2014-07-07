@@ -6,7 +6,7 @@ package drj.euler.prime;
  * <p>
  * Implementations:
  * <ul>
- * <li>{@link #basicPrimeChecker()} - A simple
+ * <li>{@link #basicPrimeService()} - A simple
  * stateless implementation that performs each calculation independently.
  */
 public class PrimeServices {
@@ -27,11 +27,11 @@ public class PrimeServices {
 	 * 
 	 * @return a simple PrimeService for checking primes
 	 */
-	public static PrimeService basicPrimeChecker() {
+	public static PrimeService basicPrimeService() {
 		return new PrimeService() {
 			@Override
 			public boolean isPrime(long num) {
-				if (num < 2)
+				if (num < 2 || num > MAX_PRIME)
 					return false;
 				else if (num < 4)
 					return true;
@@ -39,8 +39,6 @@ public class PrimeServices {
 					return false;
 				else if (num < 9)
 					return true;
-				else if (num > MAX_PRIME)
-					return false;
 				for (long i = 5, lim = (long) Math.sqrt(num); i <= lim; i += 6) {
 					if (num % i == 0 || num % (i + 2) == 0)
 						return false;

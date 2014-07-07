@@ -12,7 +12,7 @@ public abstract class PrimeService implements PrimeChecker {
 	 *            the number to start the search for the next prime from
 	 * @return the first prime number greater than the one submitted
 	 */
-	public long nextPrime(long num) {
+	public long getNextPrime(long num) {
 		if (num >= MAX_PRIME)
 			throw new IllegalArgumentException("No primes greater than " + num
 					+ " that fit in a long");

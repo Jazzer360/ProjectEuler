@@ -24,7 +24,7 @@ public class Problem007 extends Problem {
 
 		int prime = 1;
 		for (int i = 1; i <= 10_001; i++) {
-			prime = (int) p.nextPrime(prime);
+			prime = (int) p.getNextPrime(prime);
 		}
 
 		return String.valueOf(prime);

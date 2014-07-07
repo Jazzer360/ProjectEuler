@@ -187,7 +187,7 @@ public final class Utility {
 	 * use the other sieve functions and the sieving will be done automatically
 	 * in increments of 100,000.
 	 */
-	public static class PrimeSieve extends PrimeService{
+	public static class PrimeSieve extends PrimeService {
 		private long sievedTo;
 		private int partsAllocated;
 		private final boolean[][] primeSieve;
@@ -325,7 +325,7 @@ public final class Utility {
 		 * 				the sieve
 		 */
 		@Override
-		public long nextPrime(long prime) {
+		public long getNextPrime(long prime) {
 			if (prime >= SIEVE_MAX - 18) {
 				throw new IllegalArgumentException(
 						"Number exceeds the max size of sieve.");

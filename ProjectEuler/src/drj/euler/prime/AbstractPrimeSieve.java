@@ -1,10 +1,7 @@
 package drj.euler.prime;
 
-import java.util.Collection;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,29 +13,30 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Implementations must provide backing data structure to hold the prime status
- * of positive odd integers. Since this abstraction is designed to be thread
- * safe, subclasses MUST ensure that calls to setNotPrime
+ * of positive odd integers.
  */
 abstract class AbstractPrimeSieve extends PrimeService {
 
-	private static class DaemonThreadFactory implements ThreadFactory {
+	private static final int CORES = Runtime.getRuntime().availableProcessors();
+	private static final ThreadFactory DAEMON_FACTORY = new ThreadFactory() {
 		@Override
 		public Thread newThread(Runnable r) {
 			Thread thread = new Thread(r);
 			thread.setDaemon(true);
 			return thread;
 		}
-	}
+	};
 
-	private static final int CORES = Runtime.getRuntime().availableProcessors();
-
-	protected AtomicLong sievedTo = new AtomicLong();
+	protected AtomicLong sievedTo;
 	private Lock sieveLock = new ReentrantLock();
-	private CountDownLatch latch;
 	private ExecutorService queryService = Executors
-			.newCachedThreadPool(new DaemonThreadFactory());
+			.newCachedThreadPool(DAEMON_FACTORY);
 	private ExecutorService sieveService = Executors.newFixedThreadPool(
-			CORES + 1, new DaemonThreadFactory());
+			CORES + 1, DAEMON_FACTORY);
+
+	protected AbstractPrimeSieve(long initSievedTo) {
+		sievedTo = new AtomicLong(initSievedTo);
+	}
 
 	/**
 	 * Subclasses must implement this method to check the backing data to see if
@@ -48,7 +46,7 @@ abstract class AbstractPrimeSieve extends PrimeService {
 	 *            number to check if prime
 	 * @return true if the submitted number is prime
 	 */
-	protected abstract boolean checkPrime(long num);
+	protected abstract boolean isSievedPrime(long num);
 
 	/**
 	 * Returns the number of odd numbers to check for primality on each sieving
@@ -57,7 +55,11 @@ abstract class AbstractPrimeSieve extends PrimeService {
 	 * 
 	 * @return the amount of odd numbers to be sieved on the next sieve pass
 	 */
-	protected abstract long getSieveIncrement();
+	protected abstract long getSieveAmount();
+
+	public long getSievedTo() {
+		return sievedTo.get();
+	}
 
 	/**
 	 * Subclasses must handle any preparation required for the sieve process in
@@ -97,76 +99,50 @@ abstract class AbstractPrimeSieve extends PrimeService {
 	 *            non-prime numbers which we must set as non-prime in the
 	 *            backing data
 	 */
-	protected abstract void setNotPrime(CountDownLatch latch, long... nums);
+	protected abstract void setNotPrime(long num);
 
-	private void sieve() {
-		long sievedTo = this.sievedTo.get();
-		long increment = Math.min(getSieveIncrement(), sievedTo);
+	private void doSieve() {
+		long sievedTo = getSievedTo();
+		long increment = Math.min(getSieveAmount(), sievedTo);
 		onSieveStart(increment);
 		increment *= 2;
 		long sieveTarget = increment + sievedTo;
-		long maxSieve = sieveTarget / 3;
+		long maxPrimeMultiple = sieveTarget / 3;
 
-		Collection<Runnable> runnables = new ConcurrentLinkedQueue<Runnable>();
-
-		class SieveTask implements Runnable {
-			private long prime;
-
-			private SieveTask(long prime) {
-				this.prime = prime;
-			}
-
-			@Override
-			public void run() {
-				long step = prime * 2;
-				long firstMultiple = sievedTo / prime + 1;
-				if (firstMultiple % 2 == 0)
-					firstMultiple++;
-				firstMultiple *= prime;
-				long multipleCount = (long) (Math
-						.floor((sieveTarget - firstMultiple) / (double) step) + 1);
-				long[] multiples = new long[(int) multipleCount];
-				for (int i = 0; i < multipleCount; i++) {
-					multiples[i] = firstMultiple + step * i;
-				}
-				setNotPrime(latch, multiples);
-			}
-		}
-
-		for (long num = 3; num <= maxSieve; num += 2) {
+		for (long num = 3; num <= maxPrimeMultiple; num += 2) {
 			if (isPrime(num))
-				runnables.add(new SieveTask(num));
-		}
-
-		latch = new CountDownLatch(runnables.size());
-
-		for (Runnable runnable : runnables) {
-			sieveService.execute(runnable);
-		}
-
-		try {
-			latch.await();
-		} catch (InterruptedException e) {
-			throw new CompletionException(e);
+				doFilterMultiples(num, getSievedTo() + 2, sieveTarget);
 		}
 
 		this.sievedTo.set(sieveTarget);
-		onSieveComplete(this.sievedTo.get());
+		onSieveComplete(getSievedTo());
+	}
+
+	private void doFilterMultiples(long prime, long start, long end) {
+		long step = prime * 2;
+		long multiple = start / prime;
+		if (multiple % 2 == 0)
+			multiple++;
+		multiple *= prime;
+		while (multiple <= end) {
+			setNotPrime(multiple);
+			multiple += step;
+		}
 	}
 
 	@Override
 	public boolean isPrime(long num) {
-		if (num % 2 == 0)
-			return num == 2 ? true : false;
 		if (num < 2 || num > MAX_PRIME)
 			return false;
-		if (num > sievedTo.get()) {
+		if (num % 2 == 0)
+			return num == 2 ? true : false;
+		if (num > getSievedTo()) {
 			sieveLock.lock();
-			if (num <= sievedTo.get()) {
+			if (num <= getSievedTo()) {
 				sieveLock.unlock();
 				return isPrime(num);
 			}
-			sieve();
+			doSieve();
 			sieveLock.unlock();
 			return isPrime(num);
 		}
@@ -174,7 +150,7 @@ abstract class AbstractPrimeSieve extends PrimeService {
 		Future<Boolean> prime = queryService.submit(new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return checkPrime(num);
+				return isSievedPrime(num);
 			}
 		});
 
