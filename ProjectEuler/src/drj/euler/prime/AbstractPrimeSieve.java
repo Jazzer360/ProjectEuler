@@ -34,6 +34,10 @@ abstract class AbstractPrimeSieve extends PrimeService {
 	private ExecutorService sieveService = Executors.newFixedThreadPool(
 			CORES + 1, DAEMON_FACTORY);
 
+	/**
+	 * 
+	 * @param initSievedTo
+	 */
 	protected AbstractPrimeSieve(long initSievedTo) {
 		sievedTo = new AtomicLong(initSievedTo);
 	}

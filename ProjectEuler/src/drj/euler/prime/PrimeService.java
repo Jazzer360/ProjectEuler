@@ -10,7 +10,7 @@ public abstract class PrimeService implements PrimeChecker {
 	 * 
 	 * @param num
 	 *            the number to start the search for the next prime from
-	 * @return the first prime number greater than the one submitted
+	 * @return the first prime number greater than the number submitted
 	 */
 	public long getNextPrime(long num) {
 		if (num >= MAX_PRIME)
