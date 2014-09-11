@@ -2,8 +2,6 @@ package drj.euler.prime;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-import java.util.concurrent.CountDownLatch;
 
 import drj.euler.Utility;
 
@@ -63,5 +61,9 @@ public class TestSieve extends AbstractPrimeSieve {
 	protected void setNotPrime(long num) {
 		int index = (int) (num / 2);
 		sieve.set(index, Boolean.FALSE);
+	}
+
+	@Override
+	protected void onSieveComplete(long sievedTo) {
 	}
 }

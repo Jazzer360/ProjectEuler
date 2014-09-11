@@ -86,8 +86,7 @@ abstract class AbstractPrimeSieve extends PrimeService {
 	 * @param sievedTo
 	 *            the number to which the sieve is sieved to
 	 */
-	protected void onSieveComplete(long sievedTo) {
-	}
+	protected abstract void onSieveComplete(long sievedTo);
 
 	/**
 	 * Subclasses must implement this method to change the backing data of the
@@ -114,8 +113,8 @@ abstract class AbstractPrimeSieve extends PrimeService {
 		long maxPrimeMultiple = sieveTarget / 3;
 
 		for (long num = 3; num <= maxPrimeMultiple; num += 2) {
-			if (isPrime(num))
-				doFilterMultiples(num, getSievedTo() + 2, sieveTarget);
+			if (isPrime(num)) doFilterMultiples(num, getSievedTo() + 2,
+					sieveTarget);
 		}
 
 		this.sievedTo.set(sieveTarget);
@@ -125,8 +124,7 @@ abstract class AbstractPrimeSieve extends PrimeService {
 	private void doFilterMultiples(long prime, long start, long end) {
 		long step = prime * 2;
 		long multiple = start / prime;
-		if (multiple % 2 == 0)
-			multiple++;
+		if (multiple % 2 == 0) multiple++;
 		multiple *= prime;
 		while (multiple <= end) {
 			setNotPrime(multiple);
@@ -136,10 +134,8 @@ abstract class AbstractPrimeSieve extends PrimeService {
 
 	@Override
 	public boolean isPrime(long num) {
-		if (num < 2 || num > MAX_PRIME)
-			return false;
-		if (num % 2 == 0)
-			return num == 2 ? true : false;
+		if (num < 2 || num > MAX_PRIME) return false;
+		if (num % 2 == 0) return num == 2 ? true : false;
 		if (num > getSievedTo()) {
 			sieveLock.lock();
 			if (num <= getSievedTo()) {
