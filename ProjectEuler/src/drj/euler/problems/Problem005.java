@@ -20,21 +20,18 @@ public class Problem005 extends Problem {
 
 	@Override
 	protected String onSolve() {
-		int seeking = 20;
-		int answer = 0;
-		boolean answerFound = false;
+		int step = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19;
+		int num = step;
+		while (!isDivisibleByRange(num)) num += step;
+		return String.valueOf(num);
+	}
 
-		for (int i = seeking * 18; !answerFound; i += seeking) {
-			for (int j = seeking - 1; j > 1; j--) {
-				if (i % j != 0) {
-					break;
-				} else if (j == 2) {
-					answer = i;
-					answerFound = true;
-				}
+	private static boolean isDivisibleByRange(int num) {
+		for (int i = 20; i > 1; i--) {
+			if (num % i != 0) {
+				return false;
 			}
 		}
-
-		return String.valueOf(answer);
+		return true;
 	}
 }
