@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import drj.euler.prime.PrimeService;
-
 /**
  * A helper class filled with static methods and a timer class that can be used
  * to assist in the writing of programs specifically targeted at solving the
@@ -187,7 +185,7 @@ public final class Utility {
 	 * use the other sieve functions and the sieving will be done automatically
 	 * in increments of 100,000.
 	 */
-	public static class PrimeSieve extends PrimeService {
+	public static class PrimeSieve {
 		private long sievedTo;
 		private int partsAllocated;
 		private final boolean[][] primeSieve;
@@ -294,7 +292,6 @@ public final class Utility {
 		 * 				if the number passed is greater than the maximum sieve
 		 * 				size
 		 */
-		@Override
 		public boolean isPrime(long num) {
 			if (num > SIEVE_MAX) {
 				throw new IllegalArgumentException(
@@ -324,7 +321,6 @@ public final class Utility {
 		 * 				greater than it that fits inside the maximum size of
 		 * 				the sieve
 		 */
-		@Override
 		public long getNextPrime(long prime) {
 			if (prime >= SIEVE_MAX - 18) {
 				throw new IllegalArgumentException(
@@ -917,8 +913,9 @@ public final class Utility {
 	 * will not count the minus sign as a character for the purpose of counting
 	 * the digits. Passing 0 returns 1.
 	 * 
-	 * @param num	number to count digits of
-	 * @return		number of digits in the number
+	 * @param num
+	 *            number to count digits of
+	 * @return number of digits in the number
 	 */
 	public static int numDigits(int num) {
 		int count = 0;
