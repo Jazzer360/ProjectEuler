@@ -1,4 +1,4 @@
-r = range(999, 99, -1)
+r = xrange(999, 99, -1)
 max_prod = 0
 for n1 in r:
     for n2 in r:
