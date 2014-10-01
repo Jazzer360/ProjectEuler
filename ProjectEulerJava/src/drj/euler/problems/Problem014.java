@@ -1,6 +1,5 @@
 package drj.euler.problems;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,22 +33,18 @@ public class Problem014 extends Problem {
 		System.out.println(p);
 	}
 
-	private static final BigInteger THREE = BigInteger.valueOf(3);
-	private static final BigInteger TWO = BigInteger.valueOf(2);
-	private static final BigInteger ONE = BigInteger.ONE;
-	private static final BigInteger ZERO = BigInteger.ZERO;
-
-	private Map<BigInteger, Integer> COLLATZ_LENGTH_CACHE;
+	private Map<Long, Integer> cache;
 
 	@Override
 	protected String onSolve() {
-		COLLATZ_LENGTH_CACHE = new HashMap<>();
-		int maxStart = 2;
-		int maxLength = 2;
+		cache = new HashMap<>();
+
+		int maxStart = 1;
+		int maxLength = 1;
 
 		for (int i = maxStart; i < 1_000_000; i++) {
-			int length = getCollatzLength(BigInteger.valueOf(i));
-			if (getCollatzLength(BigInteger.valueOf(i)) > maxLength) {
+			int length = getCollatzLength(i);
+			if (length > maxLength) {
 				maxStart = i;
 				maxLength = length;
 			}
@@ -58,21 +53,9 @@ public class Problem014 extends Problem {
 		return String.valueOf(maxStart);
 	}
 
-	private int getCollatzLength(BigInteger num) {
-		if (num.compareTo(ONE) == 0) {
-			return 1;
-		}
-		if (COLLATZ_LENGTH_CACHE.get(num) != null) {
-			return COLLATZ_LENGTH_CACHE.get(num);
-		}
-		if (num.mod(TWO).compareTo(ZERO) == 0) {
-			COLLATZ_LENGTH_CACHE.put(
-					num, getCollatzLength(num.divide(TWO)) + 1);
-			return COLLATZ_LENGTH_CACHE.get(num);
-		} else {
-			COLLATZ_LENGTH_CACHE.put(
-					num, getCollatzLength(num.multiply(THREE).add(ONE)) + 1);
-			return COLLATZ_LENGTH_CACHE.get(num);
-		}
+	private int getCollatzLength(long num) {
+		if (num == 1) return 1;
+		if (cache.get(num) != null) return cache.get(num);
+		return getCollatzLength(num % 2 == 0 ? num / 2 : num * 3 + 1) + 1;
 	}
 }
