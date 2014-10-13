@@ -1,4 +1,4 @@
-r = xrange(999, 99, -1)
+r = range(999, 99, -1)
 max_prod = 0
 for n1 in r:
     for n2 in r:
@@ -7,4 +7,4 @@ for n1 in r:
             break
         if str(prod) == str(prod)[::-1]:
             max_prod = prod
-print max_prod
+print(max_prod)

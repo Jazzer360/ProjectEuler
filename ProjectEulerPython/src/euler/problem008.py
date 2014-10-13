@@ -1,4 +1,3 @@
-from operator import mul
 nums = '\
 73167176531330624919225119674426574742355349194934\
 96983520312774506326239578318016984801869478851843\
@@ -24,9 +23,11 @@ nums = filter(lambda part: len(part) >= 13, nums)
 nums = [[int(char) for char in num] for num in nums]
 max_product = 0
 for seq in nums:
-    for index in xrange(0, len(seq) - 12):
+    for index in range(0, len(seq) - 12):
         subseq = seq[index:index + 13]
-        product = reduce(mul, subseq)
+        product = 1
+        for n in subseq:
+            product *= n
         if product > max_product:
             max_product = product
-print max_product
+print(max_product)
