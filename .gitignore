@@ -1,3 +1,5 @@
 *.class
 bin/
 *.pyc
+*.sublime-project
+*.sublime-workspace
