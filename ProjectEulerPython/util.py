@@ -11,6 +11,7 @@ def primes(limit=float("+inf")):
             del composites[num]
         num += 1
 
+
 def prime_factorization(num):
     factors = []
     if (num < 2):

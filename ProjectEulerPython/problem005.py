@@ -1,5 +1,5 @@
 def div_by_range(num):
-    for n in range(19,1,-1):
+    for n in range(19, 1, -1):
         if num % n:
             return False
     return True
