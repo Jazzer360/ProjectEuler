@@ -299,7 +299,7 @@ public final class Utility {
 			} else if (num < 2) {
 				return false;
 			} else if (num % 2 == 0) {
-				return num == 2 ? true : false;
+				return num == 2;
 			} else {
 				while (num > sievedTo) {
 					sieveTo(Math.min(
@@ -417,9 +417,7 @@ public final class Utility {
 			if (obj == null) return false;
 			if (!(obj instanceof Range)) return false;
 			Range other = (Range) obj;
-			if (from != other.from) return false;
-			if (to != other.to) return false;
-			return true;
+			return from == other.from && to == other.to;
 		}
 	}
 
@@ -438,7 +436,7 @@ public final class Utility {
 	 */
 	public static List<String> getFileContents(String filePath) {
 		BufferedReader inputStream = null;
-		List<String> lines = new ArrayList<String>();
+		List<String> lines = new ArrayList<>();
 
 		try {
 			inputStream = new BufferedReader(new FileReader(filePath));
@@ -519,7 +517,7 @@ public final class Utility {
 					"Cannot get factors for a number less than 1");
 		}
 
-		List<Integer> factors = new ArrayList<Integer>();
+		List<Integer> factors = new ArrayList<>();
 		double root = Math.sqrt(num);
 
 		for (int i = 1; i < root; i++) {
@@ -589,7 +587,7 @@ public final class Utility {
 	public static long getPermutation(List<Integer> digits, int nth) {
 		StringBuilder output = new StringBuilder();
 
-		List<Integer> nums = new ArrayList<Integer>();
+		List<Integer> nums = new ArrayList<>();
 		nums.addAll(digits);
 
 		for (int i = nums.size() - 1; i >= 0; i--) {
@@ -670,7 +668,7 @@ public final class Utility {
 					"The beg and end parameters must be between 0 and 9"
 							+ " inclusive");
 		}
-		List<Integer> digits = new ArrayList<Integer>();
+		List<Integer> digits = new ArrayList<>();
 
 		for (int num : nums) {
 			while (num > 0) {
@@ -718,7 +716,7 @@ public final class Utility {
 							+ " inclusive");
 		}
 
-		List<Integer> digits = new ArrayList<Integer>();
+		List<Integer> digits = new ArrayList<>();
 
 		for (int num : nums) {
 			while (num > 0) {
@@ -748,8 +746,8 @@ public final class Utility {
 	 * @return		true if both numbers are permutations of one another
 	 */
 	public static boolean isPermutation(int n1, int n2) {
-		List<Integer> digits1 = new ArrayList<Integer>();
-		List<Integer> digits2 = new ArrayList<Integer>();
+		List<Integer> digits1 = new ArrayList<>();
+		List<Integer> digits2 = new ArrayList<>();
 
 		while (n1 > 0) {
 			digits1.add(n1 % 10);
@@ -847,7 +845,7 @@ public final class Utility {
 	 * @return		true if number is triangular, otherwise false
 	 */
 	public static boolean isTriangular(long num) {
-		return (Math.sqrt(8 * num + 1) - 1) % 2 == 0 ? true : false;
+		return (Math.sqrt(8 * num + 1) - 1) % 2 == 0;
 	}
 
 	/**
@@ -857,7 +855,7 @@ public final class Utility {
 	 * @return		true if number is a perfect square, otherwise false
 	 */
 	public static boolean isSquare(long num) {
-		return Math.sqrt(num) % 1 == 0 ? true : false;
+		return Math.sqrt(num) % 1 == 0;
 	}
 
 	/**
@@ -869,7 +867,7 @@ public final class Utility {
 	 * @return		true if number is pentagonal, otherwise false
 	 */
 	public static boolean isPentagonal(long num) {
-		return (Math.sqrt(24 * num + 1) + 1) % 6 == 0 ? true : false;
+		return (Math.sqrt(24 * num + 1) + 1) % 6 == 0;
 	}
 
 	/**
@@ -881,7 +879,7 @@ public final class Utility {
 	 * @return		true if number is hexagonal, otherwise false
 	 */
 	public static boolean isHexagonal(long num) {
-		return (Math.sqrt(8 * num + 1) + 1) % 4 == 0 ? true : false;
+		return (Math.sqrt(8 * num + 1) + 1) % 4 == 0;
 	}
 
 	/**
@@ -893,7 +891,7 @@ public final class Utility {
 	 * @return		true if number is heptagonal, otherwise false
 	 */
 	public static boolean isHeptagonal(long num) {
-		return (Math.sqrt(40 * num + 9) + 3) % 10 == 0 ? true : false;
+		return (Math.sqrt(40 * num + 9) + 3) % 10 == 0;
 	}
 
 	/**
@@ -905,7 +903,7 @@ public final class Utility {
 	 * @return		true if number is octagonal, otherwise false
 	 */
 	public static boolean isOctagonal(long num) {
-		return (Math.sqrt(3 * num + 1) + 1) % 3 == 0 ? true : false;
+		return (Math.sqrt(3 * num + 1) + 1) % 3 == 0;
 	}
 
 	/**
